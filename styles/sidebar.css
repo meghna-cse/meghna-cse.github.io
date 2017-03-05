@@ -54,10 +54,8 @@ li{
 #current-page{ 
 	background-color: white;
 	border-color: white;
-	border-left: 8px #e94466 solid;
-	
+	border-left: 8px #e94466 solid;	
 }
-
 
 /*hover effect*/
 .over {

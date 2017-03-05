@@ -23,12 +23,14 @@
 		<link rel="stylesheet" type="text/css" href="styles/sidebar.css">
 		<link rel="stylesheet" type="text/css" href="styles/social-links.css">
 		<link rel="stylesheet" type="text/css" href="styles/subscribe.css">
+		<link rel="stylesheet" type="text/css" href="styles/carousal.css">
 
 <!--JS Files-->
 	<script type="text/javascript" src="javascript/validation.js"></script>
+	<script type="text/javascript" src="javascript/carousal.js"></script>
 
 <!--Fonts-->
-	<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Satisfy|Rock+Salt|Poiret+One" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Stalemate|Satisfy|Rock+Salt|Poiret+One|Raleway:300" rel="stylesheet">
 
 <style>
 		*{
@@ -43,7 +45,8 @@
 			overflow: visible;
 			height: 100%; 
 			max-height: 100%; 
-			font-family:Sans-serif;
+			font-family: 'Raleway', sans-serif;
+			
 			line-height: 1.2;
 		}
 		
@@ -66,196 +69,139 @@
 		}
 		
 		p {
-			color: #555;
-			font-size: 15px;
-   			max-width: 680px;
+			color: #555555;
+			font-size: 16px;
+			line-height: 20px;
    			text-align: justify;
+   			vertical-align: middle;
+   			text-align: justify;
+
 		}
 
-/*Featured content*/
-	#main{
-		margin-left: 200px;
-	}
-
 	.featured {
-		list-style: none;
-		padding: 0;
-		margin: 0 auto;
-		text-align: center;
 		width: 100%;
+		padding: 20px 40px 50px 40px;
+		background-color: #f7f9f9;
+		margin: 0px;
 	}
 
-	.featured li {
-		display: inline-block;
-		margin: 10px;
-    	width: 220px;
+	.border{
+		outline-style:inset;
+		outline-width:8px;
+		outline-color: #EEEEE0;
 	}
 
-	.featured li > a,
-	.featured li > a img {
-   		width: 100%;
-		display: block;
-    	-webkit-transition: all 0.3s ease-in-out;
-    }
-
-	.featured li > a img:hover {
-    	border-radius: 50%;
+	hr{
+		width: 91em;
+		height: 5px;
+		color: white;
 	}
 
-	.top-content img{
-		height: 350px;
-		width: 80px;
-		border: 10px dashed #FFF0F5;
+	.space{
+		padding-left: 5px;
+		padding-right: 30px;
 	}
 
-/*Articles*/
-	#articles{
-   		list-style:none;
-    	margin: 0 auto;
-    	max-width: 600px;
-    	text-align: center;
-    	padding: 0;
-	}
-
-	#articles li{
-   		display: block;
-    	box-sizing:border-box;
-   		border-radius: 3px;
-    	text-align: left;
-    	box-shadow: 1px 3px 1px 0 rgba(0, 0, 0, 0.08);
-    	border:1px solid #cfcfcf;
-    	overflow: hidden;
-    	background-color: #fff;
-    	font: normal 13px sans-serif;
-    	margin-bottom: 40px;
-    	max-width: 575px;
-	}
-	
-	/* Article photo */
-	#articles li > a{
-    	float: left;
-    	width: 200px;
-    	height: 200px;
-    	display: block;
-    	background-size: cover;
-	}
-
-	#articles li div{
-    	float: left;
-    	box-sizing: border-box;
-    	max-width: 350px;
-    	padding: 30px;
-	}
-
-	/* Article title */
-	#articles li div h2{
-    	font-size: 16px;
-    	overflow: hidden;
-   		text-overflow: ellipsis;
-    	white-space: nowrap;
-    	margin:0;
-	}	
-
-	#articles li div h2 a{
-    	color: #2b2b2b;
-    	text-decoration: none;
-	}
-
-	/* Article excerpt */
-	#articles li div p{
-    	line-height: 20px;
-    	color: #5d5d5d;
-    	margin: 20px 0;
-	}
-
-	#articles li a.read-more{
+	.read-more{
     	background-color: #87bcd7;
     	font-size: 12px;
     	color: #ffffff;
-    	text-decoration: none;
     	padding: 4px 8px;
     	border-radius: 2px;
     	margin: 20px 0;
     	font-weight: bold;
 	}
+	.read-more:hover{
+		color: #ffffff;
+	}
 
+	.inner{
+		background: rgba(127, 255, 212, .2);
+	}
+	.over:hover::before {
+		background-color: #C1CDC1;
+	}
 	</style>
 </head>
 
 <body>		
 
-<!--Featured Content-->
-<div id="main">
-	<ul class="featured">
-		<li>
-			<a href="#" class="top-content">
-				<img src="images/Posts/Book1(A&D).jpg" alt="Angels &amp; Demons"/>
-			</a>
-		</li>
-		<li>
-			<a href="#" class="top-content">
-				<img src="images/Posts/Book2(TGG).jpg" alt="The Great Gatsby"/>
-			</a>
-		</li>
-		<li>
-			<a href="#" class="top-content">
-				<img src="images/Posts/Book3(TDOTJ).jpg" alt="The Day of the Jackal"/>
-			</a>
-		</li>
-		<li>
-			<a href="#" class="top-content">
-				<img src="images/Posts/Book4(TGF).jpg" alt="The Godfather"/>
-			</a>
-		</li>
-	</ul>
+<!--carousal-->
+<!--<br /><br />-->
+<div class="carousel">
+  	<div class="holder">
+    	<a href="Posts/greatgatsby.html" style="text-decoration:none;"><img src="images/Posts/Book2(TGG).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+  		<a href="Posts/angels&demons.html" style="text-decoration:none;"><img src="images/Posts/Book1(A&D).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+    	<a href="Posts/greatgatsby.html" style="text-decoration:none;"><img src="images/Posts/Book3(TDOTJ).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+    	<a href="Posts/godfather.html" style="text-decoration:none;"><img src="images/Posts/Book4(TGF).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+   		<a href="Posts/assegai.html" style="text-decoration:none;"><img src="images/Posts/Book5(Assegai).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+    	<a href="Posts/avenger.html" style="text-decoration:none;"><img src="images/Posts/Book6(avenger).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+    	<a href="Posts/blooddiamonds.html" style="text-decoration:none;"><img src="images/Posts/Book7(blooddiamonds).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+    	<a href="Posts/eatersofthedead.html" style="text-decoration:none;"><img src="images/Posts/Book8(eatersofthedead).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+  		<a href="Posts/gai-jin.html" style="text-decoration:none;"><img src="images/Posts/Book9(gai-jin).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+    	<a href="Posts/triumphofthesun.html" style="text-decoration:none;"><img src="images/Posts/Book11(triumphofthesun).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+    	<a href="Posts/shogun.html" style="text-decoration:none;"><img src="images/Posts/Book10(shogun).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+  		<a href="Posts/greatgatsby.html" style="text-decoration:none;"><img src="images/Posts/Book2(TGG).jpg" style=" width: 200px; height: 400px;" alt=""></a>
+  	</div>
 </div>
 <!---->
+<br /><br /><br />
 
-
+<!--Most Popular-->
+<div class="container featured">
+	<h1 style="font-family: 'Stalemate'; text-align: center;">Most Popular</h1>
+	<div class="row">
+		<div class="col-md-3 space">
+			<img class="border" src="images/Posts/angelsanddemons.jpg" style=" width: 250px; height: 250px;" alt="" />
+		</div>
+		<div class="col-md-3 space">
+			<h3><a href="Posts/Angels&Demons.html" style="text-decoration:none;">Angels &amp; Demons</a></h3>
+			<p>When world-renowned Harvard symbologist Robert Langdon is summoned to a Swiss research facility to analyze a mysterious symbol—seared into the chest of a murdered physicist—he discovers evidence of the unimaginable: the resurgence of an ancient secret brotherhood...</p>
+			<a href="#" style="text-decoration:none;" class="read-more">Read more &rarr;</a>
+		</div>
+		<div class="col-md-3 space">
+			<img class="border" src="images/Posts/blooddiamonds.jpg" style=" width: 250px; height: 250px;" alt="" />
+		</div>
+		<div class="col-md-3 space">
+			<h3><a href="Posts/Blood Diamonds.html" style="text-decoration:none;">Blood Diamonds</a></h3>
+			<p>First discovered in 1930, the diamonds of Sierra Leone have funded one of the most savage rebel campaigns in modern history. These "blood diamonds" are smuggled out of West Africa and sold to legitimate diamond merchants in London, Antwerp, and New York, often...</p>
+			<a href="#" style="text-decoration:none;" class="read-more">Read more &rarr;</a>
+		</div>
+  	</div>
+</div>
+<!---->
 <br /><br />
 
-<!--Articles-->
-<div style="margin-left: 270px;">
-	<ul id="articles">
-    <li>
-        <a href="#" style="background-image: url('images/Posts/Book2(TGG).jpg')"></a>
-        <div>
-            <h2><a href="#">The Great Gatsby</a></h2>
-            <p>This exemplary novel of the Jazz Age has been acclaimed by generations of readers. The story of the fabulously wealthy...</p> <!--taken from Goodreads.com-->
-            <a href="#" class="read-more">Read more &rarr;</a>
-        </div>
-    </li>
-    <li>
-        <a href="#" style="background-image: url('images/Posts/Book1(A&D).jpg')"></a>
-         <div>
-            <h2><a href="#">Angels and Demons</a></h2>
-            <p>When world-renowned Harvard symbologist Robert Langdon is summoned to a Swiss research facility to analyze a...</p>
-            <!--taken from Goodreads.com-->
-             <a href="#" class="read-more">Read more &rarr;</a>
-        </div>
-    </li>
-    <li>
-        <a href="#" style="background-image: url('images/Posts/Book2(TGG).jpg')"></a>
-        <div>
-            <h2><a href="#">The Great Gatsby</a></h2>
-            <p>This exemplary novel of the Jazz Age has been acclaimed by generations of readers. The story of the fabulously wealthy...</p> <!--taken from Goodreads.com-->
-            <a href="#" class="read-more">Read more &rarr;</a>
-        </div>
-    </li>
-    <li>
-        <a href="#" style="background-image: url('images/Posts/Book1(A&D).jpg')"></a>
-         <div>
-            <h2><a href="#">Angels and Demons</a></h2>
-            <p>When world-renowned Harvard symbologist Robert Langdon is summoned to a Swiss research facility to analyze a...</p>
-            <!--taken from Goodreads.com-->
-             <a href="#" class="read-more">Read more &rarr;</a>
-        </div>
-    </li>
-	</ul>
+<!--Recent Posts-->
+<div class="container">
+	<h1 style="font-family: 'Stalemate'; text-align: center;">Recent Posts</h1>
+	<div class="row"  style="text-align: center;">
+		<div class="col-md-3">
+			<a href="Posts/Assegai.html" style="text-decoration:none;"><img class="border" src="images/Posts/assegai.jpg" style="width: 200px; height: 200px; outline-width: 3px;" alt="">
+			<p style="padding: 10px;">Assegai</a>: It is 1913 and Leon Courtney, an ex-soldier turned professional hunter in British East Africa, guides the rich and powerful from America and Europe on big-game safaris. Leon had never sought fame, but an expedition alongside U.S. President Theodore Roosevelt has made him one of the most sought-after hunters on the...</p>
+		</div>
+		<div class="col-md-3">
+			<a href="Posts/Avenger.html" style="text-decoration:none;"><img class="border" src="images/Posts/avenger.jpg" style="width: 200px; height: 200px; outline-width: 3px;" alt="">
+			<p style="padding: 10px;">Avenger</a>: Attorney Calvin Dexter hangs his shingle in a quiet New Jersey town, has a reasonably successful practice, and takes the hills strong while triathalon training. But Dexter is no ordinary man. The summer before he goes to college, Ricky Colenso travels to Bosnia to volunteer as an aid worker. A few weeks later,...</p>
+		</div>
+		<div class="col-md-3">
+			<a href="Posts/The Day of the Jackal.html" style="text-decoration:none;"><img class="border" src="images/Posts/dayofthejackal.jpg" style="width: 200px; height: 200px; outline-width: 3px;" alt="">
+			<p style="padding: 10px;">The Day of the Jackal</a>: The Jackal. A tall, blond Englishman with opaque, gray eyes. A killer at the top of his profession. A man unknown to any secret service in the  world. An assassin with a contract to kill the world's most heavily guarded man. One  man with a rifle who can change the course of history. One man whose mission is so...</p>
+		</div>
+		<div class="col-md-3">
+			<a href="Posts/Shogun.html" style="text-decoration:none;"><img class="border" src="images/Posts/shogun.jpg" style="width: 200px; height: 200px; outline-width: 3px;" alt="">
+			<p style="padding: 10px;">Shogun</a>: A bold English adventurer. An invincible Japanese warlord. A beautiful woman torn between two ways of life, two ways of love. All brought together in an extraordinary saga of a time and a place aflame with conflict, passion, ambition, lust, and the struggle for power...</p>
+		</div>
+	</div>
 </div>
 <!---->
+<br /><br />
 
-	
+<!--Show all Posts-->
+<div style="background-color: #f7f9f9; padding: 50px;">
+	<h1 style="font-family: 'Stalemate'; text-align: center;">Posts:</h1>
+</div>
+<!---->
 		
 <!--Sidebar-->
 		<nav id="nav">
@@ -273,15 +219,15 @@
 				<a href="MainPage.html"><img src="images/logo.png"  width="150"></a><br /><br />
 				<ul style="font-family: 'Poiret One', cursive;"><b>
 					
-					<div id="current-page" class="navback"><li><span>Posts</span></li></div>
+					<div id="current-page" class="navback" style="border-left: 8px #F4A460 solid;"><li><span>Posts</span></li></div>
 
-					<a href="About.html" style="text-decoration:none;"><div class="navback over" ><li><span>About</span></li></div></a>
+					<a href="About.html" style="text-decoration:none;"><div class="navback over" data-text="About"><li><span>About</span></li></div></a>
 
-					<a href="Contact.html" style="text-decoration:none;"><div class="navback over"  ><li><span>Contact</span></li></div></a>
+					<a href="Contact.html" style="text-decoration:none;"><div class="navback over" data-text="Contact"><li><span>Contact</span></li></div></a>
 
-					<a href="Feedback.html" style="text-decoration:none;"><div class="navback over" ><li><span>Feedback</span></li></div></a>
+					<a href="Feedback.html" style="text-decoration:none;"><div class="navback over" data-text="Feedback"><li><span>Feedback</span></li></div></a>
 
-					<li style="color: gray; margin-top: 80px;  margin-top: 180px;"><span>Made by Meghna Jaglan</span></li></a>
+					<li style="color: gray; margin-top: 80px;  margin-top: 180px;"><span><small>Made by </small><a href="MJ.html" style="text-decoration: none;"><big>Meghna Jaglan</big></a></span></li></a>
 
 				</b>
 				</ul>
