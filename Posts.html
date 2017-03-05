@@ -27,7 +27,6 @@
 
 <!--JS Files-->
 	<script type="text/javascript" src="javascript/validation.js"></script>
-	<script type="text/javascript" src="javascript/carousal.js"></script>
 
 <!--Fonts-->
 	<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Stalemate|Satisfy|Rock+Salt|Poiret+One|Raleway:300" rel="stylesheet">
@@ -81,7 +80,7 @@
 	.featured {
 		width: 100%;
 		padding: 20px 40px 50px 40px;
-		background-color: #f7f9f9;
+		background-color: rgba(255, 182, 193, 0.1);
 		margin: 0px;
 	}
 
@@ -115,12 +114,10 @@
 		color: #ffffff;
 	}
 
-	.inner{
-		background: rgba(127, 255, 212, .2);
+	iframe{
+		width: 100%
 	}
-	.over:hover::before {
-		background-color: #C1CDC1;
-	}
+	 
 	</style>
 </head>
 
@@ -174,7 +171,7 @@
 
 <!--Recent Posts-->
 <div class="container">
-	<h1 style="font-family: 'Stalemate'; text-align: center;">Recent Posts</h1>
+	<h1 style="font-family: 'Stalemate'; text-align: center;">Recent</h1>
 	<div class="row"  style="text-align: center;">
 		<div class="col-md-3">
 			<a href="Posts/Assegai.html" style="text-decoration:none;"><img class="border" src="images/Posts/assegai.jpg" style="width: 200px; height: 200px; outline-width: 3px;" alt="">
@@ -198,8 +195,10 @@
 <br /><br />
 
 <!--Show all Posts-->
-<div style="background-color: #f7f9f9; padding: 50px;">
-	<h1 style="font-family: 'Stalemate'; text-align: center;">Posts:</h1>
+<div style="background-color: rgba(255, 182, 193, 0.1); padding: 50px;">
+	<h1 style="font-family: 'Stalemate'; text-align: center;">All Posts:</h1>
+	<iframe src="timeline.html" height="500px" frameborder="0" align="center"></iframe>
+	<h3><a href="timeline.html" style="text-decoration: none;">Click to see in a new page</a></h3>
 </div>
 <!---->
 		
@@ -219,15 +218,15 @@
 				<a href="MainPage.html"><img src="images/logo.png"  width="150"></a><br /><br />
 				<ul style="font-family: 'Poiret One', cursive;"><b>
 					
-					<div id="current-page" class="navback" style="border-left: 8px #F4A460 solid;"><li><span>Posts</span></li></div>
+					<div id="current-page" class="navback"><li><span>Posts</span></li></div>
 
-					<a href="About.html" style="text-decoration:none;"><div class="navback over" data-text="About"><li><span>About</span></li></div></a>
+					<a href="About.html" style="text-decoration:none;"><div class="navback over"><li><span>About</span></li></div></a>
 
-					<a href="Contact.html" style="text-decoration:none;"><div class="navback over" data-text="Contact"><li><span>Contact</span></li></div></a>
+					<a href="Contact.html" style="text-decoration:none;"><div class="navback over"><li><span>Contact</span></li></div></a>
 
-					<a href="Feedback.html" style="text-decoration:none;"><div class="navback over" data-text="Feedback"><li><span>Feedback</span></li></div></a>
+					<a href="Feedback.html" style="text-decoration:none;"><div class="navback over"><li><span>Feedback</span></li></div></a>
 
-					<li style="color: gray; margin-top: 80px;  margin-top: 180px;"><span><small>Made by </small><a href="MJ.html" style="text-decoration: none;"><big>Meghna Jaglan</big></a></span></li></a>
+					<li style="color: gray; margin-top: 80px;  margin-top: 180px;"><span><small>Made by </small><a href="MJ.html" style="text-decoration: none; color: white;"><big>Meghna Jaglan</big></a></span></li></a>
 
 				</b>
 				</ul>
