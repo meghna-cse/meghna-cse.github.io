@@ -8,6 +8,7 @@
  
 	<title>Meghna Jaglan</title>
 		
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
 
 <!--Fonts-->
 	<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
@@ -28,11 +29,13 @@
 			animation: 1.5s content-fade-in;
 			margin: 0 auto;
 			padding: 0;
-			overflow: visible;
-			font-family: 'Poiret One';
-			color: #7b6b65;
-			font-size: 1.2em;
-			text-align: center;
+			overflow: visible;  
+			font-size: 1.1em;  
+  			padding: 0 5%; 	 
+ 			color: black;
+  			background: white;
+  			line-height: 20px;
+    		font-family: 'Poiret One', sans-serif;
 		}
 
 		@keyframes bg-fade-in {
@@ -43,50 +46,226 @@
   			from { opacity: 0 }
 		}
 
-		span {
-  			display: inline-block;
-  			vertical-align: middle;
-  			line-height: normal;
+		h2 {
+		  margin: 3em 0 0 0;
+		  font-size: 30px;
+		  letter-spacing: 2px;
+		  text-transform: uppercase;
+		  
 		}
 
-		i{
-			color: #675953;
-			padding: 0.3em;
+		#timeline {
+		  list-style: none;
+		  margin: ;
+		  padding-left: 30px;
+		  border-left: 10px solid #eee9dc;
 		}
 
-		i:hover{
-			color: black;
-			-webkit-transition: all 0.4s ease;
+		#timeline li {
+		  margin: 10% 0;
+		  position: relative;
 		}
-		
-		.projects{
-			background-color: rgba(219,166,150,0.1);
-			border-radius: 2em;
-			padding: 1em;
-			margin-top: 3%;
+
+		#timeline p {
+		  margin: 0 0 15px;
+		  font-family: "Raleway", sans-serif;
+		  color: black;
 		}
+
+		label {
+		  font-size: 1.3em;
+		  position: absolute;
+		  z-index: 100;
+		  cursor: pointer;
+		  top: 20px;
+		  margin-left: 10px;
+		  transition: transform 0.2s linear;
+		}
+
+		.date {
+		  margin-top: -12px;
+		  top: -8%;
+		  left: 0;
+		  font-size: 0.95em;
+		  line-height: 20px;
+		  position: absolute;
+		  font-family: "Poiret One", sans-serif; 
+		}
+
+		.symbol {
+		  margin-top: -10px;
+		  top: 50%;
+		  left: -44px;
+		  width: 10px;
+		  height: 10px;
+		  background: rgba(233, 68, 102, 0.4);
+		  border: 3px solid rgba(0, 0, 0, 0.5);
+		  border-radius: 40%;
+		  display: block;
+		  position: absolute;
+		}
+
+		.description {
+		  max-height: 20px;
+		  padding: 50px 20px 0;
+		  border-color: transparent;
+		  border-width: 2px;
+		  border-style: solid;
+		  border-radius: 0.5em;
+		  position: relative;
+		}
+
+		.description:before, .description:after {
+		  content: "";
+		  width: 0;
+		  height: 0;
+		  border: solid transparent;
+		  position: absolute;
+		  pointer-events: none;
+		  right: 100%;
+		}
+
+		.description:before {
+		  border-right-color: inherit;
+		  border-width: 20px;
+		  top: 50%;
+		  margin-top: -20px;
+		}
+
+		.description:after {
+		  border-right-color: #CDC1C5;
+		  border-width: 17px;
+		  top: 50%;
+		  margin-top: -17px;
+		}
+
+		.description p {
+		  max-height: 0;
+		  color: transparent;
+		  text-align: justify;
+		  word-break: break-word;
+		  hyphens: auto;
+		  overflow: hidden;
+		}
+
+		.more{
+	    	background-color: #87bcd7;
+	    	font-size: 12px;
+	    	color: #ffffff;
+	    	padding: 4px 8px;
+	    	margin: 4px 0 0 0;
+    		border-radius: 10px; 
+    		font-weight: bold;
+		}
+		.more:hover{ 
+			cursor: pointer;
+		}
+
+		.radio {
+		  display: none;
+		}
+
+		.radio:checked + .selector label {
+		  cursor: auto;
+		  transform: translateX(42px);
+		}
+
+		.radio:checked + .selector .symbol {
+		  background: #f98262;
+		}
+
+		.radio:checked ~ .description {
+		  max-height: 180px;
+		  border-color: #eee9dc;
+		  margin-right: 20px;
+		  transform: translateX(20px);
+		  transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
+		}
+
+		.radio:checked ~ .description p {
+		  max-height: 200px;
+		  color: #eee9dc;
+		  transition: color 0.3s linear 0.3s;
+		}
+
 	</style>
 </head>
 <body>		
-<div class="container-fluid" style="max-width: 60%; margin: 0 auto; ">
-<div>
-	<span>
-		<h1 style="font-family: 'Rock Salt';">Meghna Jaglan</h1>
-		<h2>
-   			<a href="https://github.com/magiie"><i class="fa fa-github-alt"></i></a>
- 			<a href="https://www.linkedin.com/in/meghnajaglan"><i class="fa fa-linkedin"></i></a>
-			<a href="https://codepen.io/magiieJ/"><i class="fa fa-codepen"></i></a>
-		</h2>
-	</span>
-</div>
 
+<div class="container-fluid" >
 
-<a href="Fact-Fiction/MainPage.html" style="text-decoration: none; color:#7b6b65;"><div class="projects">
-<h1>Fact-Fiction</h1>
-<p><b>Web site for discovering the facts(events, people, ideas) which shaped the story.</b></p></a>
-</div>
+	<div style="float: left; position: fixed; ">
+		<div class="LI-profile-badge"  data-version="v1" data-size="large" data-locale="en_US" data-type="vertical" data-theme="light" data-vanity="meghnajaglan"><a class="LI-simple-link" href='https://in.linkedin.com/in/meghnajaglan?trk=profile-badge'>Meghna Jaglan</a></div>
+	</div>
 
+	<div  style="max-width: 50%;  position: absolute; left: 400px; top: -30px;">
 
+		<ul id='timeline' >
+		  
+		  <li class='event' >
+		    <input class='radio' id='event1' name='events' type='radio' checked>
+		    <div class="selector">
+		      <label for='event1'>SOUL (Simulation of Objects in Unity for Learning)</label>
+		      <span class='date'>Jan 2017 – Apr 2018</span>
+		      <span class='symbol'></span>
+		    </div>
+		    <div class='description'>
+		      <p>
+		       Web application for simulating rigid bodies which allow the user to control and manipulate its properties (weight, volume, mass, etc.) and see the corresponding change.
+		       <br />
+		       <a href="#" style="text-decoration:none; float: right;" class="more">View More &rarr;</a>
+		      </p>
+		    </div>
+		  </li>
+		  
+		  <li class='event'>
+		    <input class='radio' id='event2' name='events' type='radio'>
+		    <div class="selector">
+		      <label for='event2'>Fact-Fiction</label>
+		      <span class='date'>Jan 2017 – Apr 2017</span>
+		      <span class='symbol'></span>
+		    </div>
+		    <div class='description'>
+		      <p>
+		       Web site for discovering the facts about events, people, ideas that shaped the story.
+		       <br />
+		       <a href="Fact-Fiction\MainPage.html" style="text-decoration:none; float: right;" class="more">View More &rarr;</a>
+		      </p>
+		    </div>
+		  </li>
+		  
+		  <li class='event'>
+		    <input class='radio' id='event3' name='events' type='radio'>
+		    <div class="selector">
+		      <label for='event3'>@MPSTME (student portal)</label>
+		      <span class='date'>Jul 2016 – Nov 2016</span>
+		      <span class='symbol'></span>
+		    </div>
+		    <div class='description'>
+		      <p>
+		       Web portal for posting and registering for upcoming events, workshops and seminars from all student clubs in the University.
+		       <br />
+		       <a href="#" style="text-decoration:none; float: right;" class="more">View More &rarr;</a>
+		      </p>
+		    </div>
+		  </li>
+		  
+		  <li class='event'>
+		    <input class='radio' id='event4' name='events' type='radio'>
+		    <div class="selector">
+		      <label for='event4'>AAMCHI-022</label>
+		      <span class='date'>Jan 2016 – May 2016</span>
+		      <span class='symbol'></span>
+		    </div>
+		    <div class='description'>
+		      <p>
+		       Mumbai travel guide Android app with information on food, hotels, transportation, attractions, best deals.
+		       <br />
+		       <a href="#" style="text-decoration:none; float: right;" class="more">View More &rarr;</a>
+		      </p>
+		    </div>
+		  </li>
+		  
 </div>
 </body>
 </html>
