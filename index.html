@@ -1,281 +1,111 @@
- <!DOCTYPE html>
-<html>
-<head>
-   
-    <title>Fact-Fiction: Posts</title>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
- 
-	<title>Meghna J</title>
-		
-<!--Fonts-->
-	<link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet">
+    <title>Meghna J - Projects</title>
 
-	<style>
-		*{
-		margin:0;
-		padding:0;
-		}
+    <meta name="description" content="Source code generated using layoutit.com">
+    <meta name="author" content="LayoutIt!">
 
-		html{
-			animation: 1s bg-fade-in;
-			background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-		}
-
-		body{
-			animation: 1.5s content-fade-in;
-			margin: 0 auto;
-			padding: 0;
-			overflow: visible;  
-			font-size: 1.1em;  
-  			padding: 0 5%; 	 
- 			color: black;
-  			background: white;
-  			line-height: 20px;
-    		font-family: 'Poiret One', sans-serif;
-		}
-
-		@keyframes bg-fade-in {
-  		from { background: #FFFFFF;}
-		}
-
-		@keyframes content-fade-in {
-  			from { opacity: 0 }
-		}
-
-		h2 {
-		  margin: 3em 0 0 0;
-		  font-size: 30px;
-		  letter-spacing: 2px;
-		  text-transform: uppercase;
-		  
-		}
-
-		#timeline {
-		  list-style: none;
-		  margin: ;
-		  padding-left: 30px;
-		  border-left: 10px solid #eee9dc;
-		}
-
-		#timeline li {
-		  margin: 10% 0;
-		  position: relative;
-		}
-
-		#timeline p {
-		  margin: 0 0 15px;
-		  font-family: "Raleway", sans-serif;
-		  color: black;
-		}
-
-		label {
-		  font-size: 1.3em;
-		  position: absolute;
-		  z-index: 100;
-		  cursor: pointer;
-		  top: 20px;
-		  margin-left: 10px;
-		  transition: transform 0.2s linear;
-		}
-
-		.date {
-		  margin-top: -12px;
-		  top: -8%;
-		  left: 0;
-		  font-size: 0.95em;
-		  line-height: 20px;
-		  position: absolute;
-		  font-family: "Poiret One", sans-serif; 
-		}
-
-		.symbol {
-		  margin-top: -10px;
-		  top: 50%;
-		  left: -44px;
-		  width: 10px;
-		  height: 10px;
-		  background: rgba(233, 68, 102, 0.4);
-		  border: 3px solid rgba(0, 0, 0, 0.5);
-		  border-radius: 40%;
-		  display: block;
-		  position: absolute;
-		}
-
-		.description {
-		  max-height: 20px;
-		  padding: 50px 20px 0;
-		  border-color: transparent;
-		  border-width: 2px;
-		  border-style: solid;
-		  border-radius: 0.5em;
-		  position: relative;
-		}
-
-		.description:before, .description:after {
-		  content: "";
-		  width: 0;
-		  height: 0;
-		  border: solid transparent;
-		  position: absolute;
-		  pointer-events: none;
-		  right: 100%;
-		}
-
-		.description:before {
-		  border-right-color: inherit;
-		  border-width: 20px;
-		  top: 50%;
-		  margin-top: -20px;
-		}
-
-		.description:after {
-		  border-right-color: #CDC1C5;
-		  border-width: 17px;
-		  top: 50%;
-		  margin-top: -17px;
-		}
-
-		.description p {
-		  max-height: 0;
-		  color: transparent;
-		  text-align: justify;
-		  word-break: break-word;
-		  hyphens: auto;
-		  overflow: hidden;
-		}
-
-		.more{
-	    	background-color: #87bcd7;
-	    	font-size: 12px;
-	    	color: #ffffff;
-	    	padding: 4px 8px;
-	    	margin: 4px 0 0 0;
-    		border-radius: 10px; 
-    		font-weight: bold;
-		}
-		.more:hover{ 
-			cursor: pointer;
-		}
-
-		.radio {
-		  display: none;
-		}
-
-		.radio:checked + .selector label {
-		  cursor: auto;
-		  transform: translateX(42px);
-		}
-
-		.radio:checked + .selector .symbol {
-		  background: #f98262;
-		}
-
-		.radio:checked ~ .description {
-		  max-height: 180px;
-		  border-color: #eee9dc;
-		  margin-right: 20px;
-		  transform: translateX(20px);
-		  transition: max-height 0.4s linear, border-color 0.5s linear, transform 0.2s linear;
-		}
-
-		.radio:checked ~ .description p {
-		  max-height: 200px;
-		  color: #eee9dc;
-		  transition: color 0.3s linear 0.3s;
-		}
-
-	</style>
-
-</head>
-<body>		
-
-<div class="container-fluid">
-
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	
 
+  </head>
+  <body>
 
-
-	<div class="container-fluid" style="  position: absolute; padding: 2em;">
-
-		<div style=" position: absolute; margin-top:2%;">
-			<h1 style="  margin-bottom: 0.2em; ">Meghna J</h1>
-			<div id="sociallinks" style="list-style: none; display: inline; font-size: 1.5em; text-decoration: none; text-align: center;">
-					<a href="https://github.com/meghna-cse"><i class="fa fa-github" style="color:rgba(0, 0, 0, 0.74902);  margin: 0.3em; "></i></a>
-					<a href="https://www.linkedin.com/in/meghna-cse/"><i class="fa fa-linkedin" style="color:rgba(0, 0, 0, 0.74902);  margin:0.3em;"></i></a>
+    <div class="container-fluid">
+		<div class="row">
+		<div class="col-md-3">
+			<div class="LI-profile-badge" style="position: fixed;" data-version="v1" data-size="medium" data-locale="en_US" data-type="vertical" data-theme="light" data-vanity="meghna-cse"><a class="LI-simple-link" href='https://in.linkedin.com/in/meghna-cse?trk=profile-badge'>Meghna J.</a></div>
+		</div>
+		<div class="col-md-9">
+			
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="meghna-cse.github.io">Home</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="#">Links</a>
+					</li>
+				</ol>
+			</nav>
+			
+			<div class="jumbotron card card-block">
+				<h3>
+					SOUL (Simulation of Objects in Unity for Learning)
+				</h3>
+				<h5>
+					Jan 2017 – Apr 2018
+				</h5>
+				<h4>
+					Web application for simulating rigid bodies which allow the user to control and manipulate its properties (weight, volume, mass, etc.) and see the corresponding change.
+				</h4>
+				<p>
+					<a class="btn btn-primary btn-large" href="SOUL/index.html">View &rarr;</a>
+				</p>
+			</div>
+			
+			<div class="jumbotron">
+				<h3>
+					Fact-Fiction
+				</h3>
+				<h5>
+					Jan 2017 – Apr 2017
+				</h5>
+				<h4>
+					Web site for discovering the facts about events, people, ideas that shaped the story.
+				</h4>
+				<p>
+					<a class="btn btn-primary btn-large" href="Fact-Fiction/MainPage.html">View &rarr;</a>
+				</p>
+			</div>
+			
+			<div class="jumbotron card card-block">
+				<h3>
+					@MPSTME (student portal)
+				</h3>
+				<h5>
+					Jul 2016 – Nov 2016
+				</h5>
+				<h4>
+					Web portal for posting and registering for upcoming events, workshops and seminars from all student clubs in the University.
+				</h4>
+				<p>
+					<a class="btn btn-primary btn-large" href="student_portal/index.html">View &rarr;</a>
+				</p>
+			</div>
+			
+			<div class="jumbotron">
+				<h3>
+					AAMCHI-022
+				</h3>
+				<h5>
+					Jan 2016 – May 2016
+				</h5>
+				<h4>
+					Mumbai travel guide Android app with information on food, hotels, transportation, attractions, best deals.
+				</h4>
+				<p>
+					<a class="btn btn-primary btn-large" href="aamchi-022/index.html">View &rarr;</a>
+				</p>
 			</div>
 		</div>
+	</div>
+	
+	</div>
 
-
-
-
-		<ul id='timeline'>
-		  
-		  <li class='event' >
-		    <input class='radio' id='event1' name='events' type='radio' checked>
-		    <div class="selector">
-		      <label for='event1'>SOUL (Simulation of Objects in Unity for Learning)</label>
-		      <span class='date'>Jan 2017 – Apr 2018</span>
-		      <span class='symbol'></span>
-		    </div>
-		    <div class='description'>
-		      <p>
-		       Web application for simulating rigid bodies which allow the user to control and manipulate its properties (weight, volume, mass, etc.) and see the corresponding change.
-		       <br />
-		       <a href="SOUL/index.html" style="text-decoration:none; float: right;" class="more">View &rarr;</a>
-		      </p>
-		    </div>
-		  </li>
-		  
-		  <li class='event'>
-		    <input class='radio' id='event2' name='events' type='radio'>
-		    <div class="selector">
-		      <label for='event2'>Fact-Fiction</label>
-		      <span class='date'>Jan 2017 – Apr 2017</span>
-		      <span class='symbol'></span>
-		    </div>
-		    <div class='description'>
-		      <p>
-		       Web site for discovering the facts about events, people, ideas that shaped the story.
-		       <br />
-		       <a href="Fact-Fiction/MainPage.html" style="text-decoration:none; float: right;" class="more">View &rarr;</a>
-		      </p>
-		    </div>
-		  </li>
-		  
-		  <li class='event'>
-		    <input class='radio' id='event3' name='events' type='radio'>
-		    <div class="selector">
-		      <label for='event3'>@MPSTME (student portal)</label>
-		      <span class='date'>Jul 2016 – Nov 2016</span>
-		      <span class='symbol'></span>
-		    </div>
-		    <div class='description'>
-		      <p>
-		       Web portal for posting and registering for upcoming events, workshops and seminars from all student clubs in the University.
-		       <br />
-		       <a href="student_portal/index.html" style="text-decoration:none; float: right;" class="more">View &rarr;</a>
-		      </p>
-		    </div>
-		  </li>
-		  
-		  <li class='event'>
-		    <input class='radio' id='event4' name='events' type='radio'>
-		    <div class="selector">
-		      <label for='event4'>AAMCHI-022</label>
-		      <span class='date'>Jan 2016 – May 2016</span>
-		      <span class='symbol'></span>
-		    </div>
-		    <div class='description'>
-		      <p>
-		       Mumbai travel guide Android app with information on food, hotels, transportation, attractions, best deals.
-		       <br />
-		       <a href="aamchi-022/index.html" style="text-decoration:none; float: right;" class="more">View &rarr;</a>
-		      </p>
-		    </div>
-		  </li>
-		  
-</div>
-</body>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+	<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+  </body>
 </html>
