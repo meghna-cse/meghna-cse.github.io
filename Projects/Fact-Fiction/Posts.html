@@ -1,0 +1,226 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	
+    <title>Fact-Fiction: Posts</title>
+
+<!--Bootstrap-->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<!--Fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Lato|Oswald|Raleway|Indie+Flower|Satisfy|Rock+Salt|Poiret+One" rel="stylesheet">
+ 
+		
+<!--CSS files-->
+	<link rel="stylesheet" type="text/css" href="css/cube-effect.css">
+
+<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+
+	body{
+		animation: 1.5s content-fade-in;
+		font-family: sans-serif;
+		text-align: center;
+	}
+		
+	@keyframes content-fade-in {
+		from { opacity: 0 }
+	}
+	
+	#main-content{
+		
+		text-align: center;
+		align-items: center;
+		font-size: 1.2em;
+		font-family: 'Poiret One';
+		color: #5B5B5B;	
+	}
+
+	.grid{
+		
+		padding: 2em;
+		outline: #E6E6FA solid 0.1em;
+		-webkit-transition: all 0.8s ease;
+		transition: all 0.8s ease;
+		cursor: pointer;
+	}	
+	 .grid:hover{
+		outline: #a5e9e1 solid 0.2em;
+		color: #333;
+	}
+
+	.date{
+		text-align: left;
+		margin-top: 1.5em;
+	}
+	
+
+</style>
+</head>
+<body>		
+
+
+
+
+<!--Grids-->
+<div class="container-fluid" id="main-content">
+
+	<div class="row" style="z-index: 1; position: fixed; width: 100%; background: linear-gradient(0deg, rgba(238,250,247,1) 0%, rgba(31,132,198,1) 23%, rgba(24,100,149,1) 56%, rgba(14,64,96,1) 92%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */">
+		<div class="col-md-12">
+		
+			<ul class="nav nav-pills" >
+				<li class="nav-item">
+					<a class="nav-link " style="color: white; text-decoration: none; " href="#">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" style="color: white; text-decoration: none; " href="https://meghna-cse.github.io/Fact-Fiction/Posts.html">Articles</a>
+				</li>
+			</ul>
+			
+			<ul class="cube-effect">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		
+		</div>
+	</div>
+	
+
+	<div style="margin-top: 2em;">
+		<div class="row">
+			<div style="text-align: right; margin-top: 2%; padding: 1em;">
+				View: <button class="btn btn-default">Default</button><button class="btn btn-default"><i class="fa fa-list"></i></button>
+			</div>
+			
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+			<div class="show col-xs-4 grid">
+				<a href="article.html" style="text-decoration:none; color: #333;">
+				<h1>Book Title</h1>
+				<hr>
+				<h2>AUTHOR: Author Name</h2>
+				<div class="date"><i class="fa fa-calendar"></i> Date</div>
+				</a>
+			</div>
+		</div>
+	</div>
+<!---->
+</body>
+</html>
