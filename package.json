@@ -4,12 +4,12 @@
   "private": true,
   "homepage": "https://meghna-cse.github.io",
   "scripts": {
-  "dev": "next dev",
-  "build": "next build",
-  "start": "next start",
-  "lint": "next lint",
-  "deploy": "next build && touch out/.nojekyll && gh-pages -d out -t true"
-},
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next build",
+    "deploy": "next build && node -e \"require('fs').writeFileSync('./out/.nojekyll', '')\" && gh-pages -d out -t true"
+  },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slot": "^1.1.0",
