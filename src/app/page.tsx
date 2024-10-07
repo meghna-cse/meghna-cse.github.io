@@ -43,7 +43,7 @@ export default function Home() {
       description: "A simple yet dynamic weather application that provides real-time weather updates and a 5-day forecast for any city in the world. It also allows users to get weather updates based on their current location.",
       media: {
         type: "youtube",
-        src: "https://www.youtube.com/embed/aF8RM-CJCz0"
+        src: "https://www.youtube.com/embed/yFf-ORlJ3uM"
       },
       link: "https://github.com/meghna-cse/weather-app",
       //reflection: "TBD",
