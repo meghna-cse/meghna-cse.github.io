@@ -121,8 +121,11 @@ export default function Home() {
   ]
 
   return (
-    <div className={`min-h-screen font-sans ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-gray-100 text-gray-900'} transition-all duration-500 ease-in-out`}>
+    <div className={`min-h-screen font-sans ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-gray-100 text-gray-900'}`}>
       <style jsx global>{`
+        * {
+          transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         
         body {
@@ -239,13 +242,18 @@ export default function Home() {
             </motion.div>
           </div>
           <div className="flex items-center space-x-2">
-            <Sun className="h-[1.2rem] w-[1.2rem] dark:hidden" />
+            <div className="w-[2.4rem] flex justify-center">
+              {theme === 'dark' ? (
+                <Moon className="h-[1.2rem] w-[1.2rem]" />
+              ) : (
+                <Sun className="h-[1.2rem] w-[1.2rem]" />
+              )}
+            </div>
             <Switch
               checked={theme === 'dark'}
               onCheckedChange={toggleTheme}
               className="data-[state=checked]:bg-primary"
             />
-            <Moon className="h-[1.2rem] w-[1.2rem] hidden dark:block" />
           </div>
         </header>
 
@@ -355,7 +363,7 @@ export default function Home() {
           </TabsContent>
         </Tabs>
       </div>
-      <footer className={`py-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'}`}>
+      <footer className={`py-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'} transition-colors duration-300`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center space-y-4">
           <div className="flex space-x-6">
             <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
