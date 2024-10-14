@@ -51,11 +51,11 @@ export default function Home() {
       title: "Beaver - LMS",
       description: "A Learning Management System web application designed to manage and present web data effectively. My contributions focused on the frontend and backend integration. This project enhanced my full-stack development skills and database management.",
       media: {
-        type: "image",
-        src: "https://github.com/meghna-cse/beaver/assets/24985713/1052277e-8f16-4a1f-93e6-1c0bfd65b03f"
+        type: "youtube",
+        src: "https://www.youtube.com/embed/PVVvpJjnF38"
       },
       link: "https://github.com/meghna-cse/beaver",
-      technologies: ["React", "Node.js", "Laravel", "MySQL"]
+      technologies: ["React", "Node.js", "Laravel", "MySQL/PostgreSQL"]
     },
     {
       title: "Input Validation and Secure Programming",
@@ -71,8 +71,8 @@ export default function Home() {
       title: "SOUL: Simulation Objects in Unity for Learning",
       description: "A project designed to make learning theoretical concepts interactive by simulating rigid body physics in real-time. Using Unity3D, C#, JavaScript, HTML, and CSS, created an engaging platform that makes learning theoretical physics interactive and accessible.",
       media: {
-        type: "image",
-        src: "https://github.com/meghna-cse/SOUL/assets/24985713/604d1942-b6d9-4bcd-8145-4c827a85d78a"
+        type: "youtube",
+        src: "https://www.youtube.com/embed/wS4iQdZC6n0"
       },
       link: "https://github.com/meghna-cse/SOUL",
       technologies: ["Unity3D", "C#", "JavaScript", "HTML", "CSS"]
