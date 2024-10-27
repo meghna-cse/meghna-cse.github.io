@@ -1,20 +1,19 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Github, Linkedin, Mail, ChevronRight, Moon, Sun, Code, Briefcase, Filter } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Github, Linkedin, Mail, ChevronRight, Moon, Sun, Code, Briefcase, FileText } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
-// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export default function Portfolio() {
   const [theme, setTheme] = useState('dark')
   const [activeTab, setActiveTab] = useState('projects')
-  const [filter, setFilter] = useState('All')
+  const [projectCategory, setProjectCategory] = useState('All')
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light'
@@ -38,7 +37,8 @@ export default function Portfolio() {
         src: "/gifs/CloakDocs.gif"
       },
       link: "https://github.com/meghna-cse/cloakdocs-web-app",
-      technologies: ["Python", "Streamlit"]
+      technologies: ["Python", "Streamlit"],
+      category: "Backend Engineering"
     },
     {
       title: "Weather App",
@@ -48,7 +48,8 @@ export default function Portfolio() {
         src: "/gifs/WeatherApp.gif"
       },
       link: "https://github.com/meghna-cse/weather-app",
-      technologies: ["React", "Flask", "OpenWeatherMap API"]
+      technologies: ["React", "Flask", "OpenWeatherMap API"],
+      category: "Web & Data Applications"
     },
     {
       title: "Beaver - LMS",
@@ -58,7 +59,8 @@ export default function Portfolio() {
         src: "/gifs/Beaver.gif"
       },
       link: "https://github.com/meghna-cse/beaver",
-      technologies: ["React", "Node.js", "Laravel", "MySQL", "PostgreSQL"]
+      technologies: ["React", "Node.js", "Laravel", "MySQL/PostgreSQL"],
+      category: "Full Stack Development"
     },
     {
       title: "Input Validation and Secure Programming",
@@ -68,7 +70,8 @@ export default function Portfolio() {
         src: "https://opengraph.githubassets.com/1/meghna-cse/inputVal"
       },
       link: "https://github.com/meghna-cse/inputVal",
-      technologies: ["Java", "Spring Boot", "Docker"]
+      technologies: ["Java", "Spring Boot", "Docker"],
+      category: "Backend Engineering"
     },
     {
       title: "SOUL: Simulation Objects in Unity for Learning",
@@ -78,7 +81,8 @@ export default function Portfolio() {
         src: "/gifs/SOUL.gif"
       },
       link: "https://github.com/meghna-cse/SOUL",
-      technologies: ["Unity3D", "C#", "JavaScript", "HTML", "CSS"]
+      technologies: ["Unity3D", "C#", "JavaScript", "HTML", "CSS"],
+      category: "Web & Data Applications"
     }
   ]
 
@@ -106,7 +110,7 @@ export default function Portfolio() {
     }
   ]
 
-  const otherWorks = [
+  const researchWorks = [
     {
       title: "SOUL: Simulation of Objects in Unity for Learning",
       publisher: "IEEE Xplorer",
@@ -123,11 +127,9 @@ export default function Portfolio() {
     }
   ]
 
-  const allTechnologies = Array.from(new Set(projects.flatMap(project => project.technologies)))
-
-  const filteredProjects = filter === 'All' 
+  const filteredProjects = projectCategory === 'All' 
     ? projects 
-    : projects.filter(project => project.technologies.includes(filter))
+    : projects.filter(project => project.category === projectCategory)
 
   return (
     <div className={`min-h-screen font-sans ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-gray-100 text-gray-900'}`}>
@@ -214,7 +216,7 @@ export default function Portfolio() {
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.3 }}
               className="w-48 h-48 sm:w-64 sm:h-64 flex-shrink-0 relative profile-image-container"
             >
               <div className={`circle-effect ${theme === 'dark' ? 'circle-effect-dark' : 'circle-effect-light'}`}></div>
@@ -236,18 +238,34 @@ export default function Portfolio() {
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.3 }}
               className="text-center sm:text-left"
             >
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Meghna J.</h2>
               <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6">
                 Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. I enjoy solving problems through clean, functional code and seamless API integration.
               </p>
-              <Button asChild className="bg-primary text-white hover:bg-primary/90 dark:bg-primary-dark dark:text-gray-900 dark:hover:bg-primary-dark/90">
-                <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                  View Resume <ChevronRight className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
+              <div className="flex items-center space-x-4">
+                <Button asChild className="bg-primary text-white hover:bg-primary/90 dark:bg-primary-dark dark:text-gray-900 dark:hover:bg-primary-dark/90">
+                  <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                    View Resume <ChevronRight className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+                <div className="flex space-x-4">
+                  <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                    <Github className="h-5 w-5" />
+                    <span className="sr-only">GitHub</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                    <Linkedin className="h-5 w-5" />
+                    <span className="sr-only">LinkedIn</span>
+                  </a>
+                  <a href="mailto:mxj3631@mavs.uta.edu" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                    <Mail className="h-5 w-5" />
+                    <span className="sr-only">Email</span>
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </div>
           <div className="flex items-center space-x-2">
@@ -267,7 +285,7 @@ export default function Portfolio() {
         </header>
 
         <Tabs defaultValue="projects" className="mb-12" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="projects" className="flex items-center justify-center">
               <Code className="mr-2 h-4 w-4" />
               Projects
@@ -276,8 +294,12 @@ export default function Portfolio() {
               <Briefcase className="mr-2 h-4 w-4" />
               Experience
             </TabsTrigger>
+            <TabsTrigger value="research" className="flex items-center justify-center">
+              <FileText className="mr-2 h-4 w-4" />
+              Research
+            </TabsTrigger>
           </TabsList>
-          <AnimatePresence mode="wait">
+
             <motion.div
               key={activeTab}
               initial={{ opacity: 0, y: 20 }}
@@ -285,7 +307,22 @@ export default function Portfolio() {
               transition={{ duration: 0.3 }}
             >
               <TabsContent value="projects">
+                <div className="mb-6">
+                  <div className="flex flex-wrap gap-2">
+                    {['All', 'Full Stack Development', 'Backend Engineering', 'Web & Data Applications'].map((category) => (
+                      <Button
+                        key={category}
+                        variant={projectCategory === category ? "default" : "outline"}
+                        onClick={() => setProjectCategory(category)}
+                        className="mb-2"
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  
                   {filteredProjects.map((project, index) => (
                     <Card key={index} className="flex flex-col h-full max-h-[600px]">
                       <CardHeader>
@@ -359,60 +396,54 @@ export default function Portfolio() {
                     </ul>
                   </CardContent>
                 </Card>
-                <Card className="mt-8">
-                  <CardHeader>
-                    <CardTitle className="text-2xl font-bold">Research Publications</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-8">
-                      {otherWorks.map((research, index) => (
-                        <li key={index} className="flex items-start space-x-2 py-2">
-                          <span className="text-primary dark:text-primary-dark">•</span>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-semibold mb-1">{research.title}</h3>
-                            <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-2`}>{research.publisher} | {research.period}</p>
-                            <p className="mb-2">{research.description}</p>
-                            <Button asChild>
-                              <a
-                                href={research.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center"
-                              >
-                                Read the paper <ChevronRight className="h-4 w-4 ml-1" />
-                              </a>
-                            </Button>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+              </TabsContent>
+              <TabsContent value="research">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {researchWorks.map((research, index) => (
+                    <Card key={index} className="flex flex-col h-full">
+                      <CardHeader>
+                        <CardTitle className="text-xl font-bold">{research.title}</CardTitle>
+                        <CardDescription>{research.publisher} | {research.period}</CardDescription>
+                      </CardHeader>
+                      <CardContent className="flex-grow">
+                        <p className="mb-4">{research.description}</p>
+                        <Button asChild>
+                          <a
+                            href={research.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center"
+                          >
+                            Read the paper <ChevronRight className="h-4 w-4 ml-1" />
+                          </a>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </TabsContent>
             </motion.div>
-          </AnimatePresence>
+
         </Tabs>
       </div>
       <footer className={`py-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'} transition-colors duration-300`}>
-  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center space-y-4">
-    <div className="flex space-x-6">
-      <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
-        <Github className="h-6 w-6" />
-        <span className="sr-only">GitHub</span>
-      </a>
-      <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
-        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-        <span className="sr-only">LinkedIn</span>
-      </a>
-      <a href="mailto:mxj3631@mavs.uta.edu" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
-        <Mail className="h-6 w-6" />
-        <span className="sr-only">Email</span>
-      </a>
-    </div>
-  </div>
-</footer>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center space-y-4">
+          <div className="flex space-x-6">
+            <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+              <Github className="h-6 w-6" />
+              <span className="sr-only">GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+              <Linkedin className="h-6 w-6" />
+              <span className="sr-only">LinkedIn</span>
+            </a>
+            <a href="mailto:mxj3631@mavs.uta.edu" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+              <Mail className="h-6 w-6" />
+              <span className="sr-only">Email</span>
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
