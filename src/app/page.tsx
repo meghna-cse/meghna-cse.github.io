@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ChevronRight, Moon, Sun, Code, Briefcase, FileText } from 'lucide-react'
 import Image from 'next/image'
+import { SiBento } from "react-icons/si";
+import { FaGoogleScholar } from "react-icons/fa6";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -243,31 +245,35 @@ export default function Portfolio() {
             >
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Meghna J.</h2>
               <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6">
-                Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. I enjoy solving problems through clean, functional code and seamless API integration.
+                Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. <br></br>
+                I enjoy solving problems through clean, functional code and seamless API integration.
               </p>
-              <div className="flex items-center space-x-4">
-                <Button asChild className="bg-primary text-white hover:bg-primary/90 dark:bg-primary-dark dark:text-gray-900 dark:hover:bg-primary-dark/90">
-                  <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                    View Resume <ChevronRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <div className="flex space-x-4">
-                  <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                    <Github className="h-5 w-5" />
-                    <span className="sr-only">GitHub</span>
-                  </a>
-                  <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                    <Linkedin className="h-5 w-5" />
-                    <span className="sr-only">LinkedIn</span>
-                  </a>
-                  <a href="mailto:mxj3631@mavs.uta.edu" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                    <Mail className="h-5 w-5" />
-                    <span className="sr-only">Email</span>
-                  </a>
+              <div className="flex flex-col items-center sm:items-start space-y-4 sm:space-y-0">
+                <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                  <Button asChild className="bg-primary text-white hover:bg-primary/90 dark:bg-primary-dark dark:text-gray-900 dark:hover:bg-primary-dark/90">
+                    <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                      View Resume <ChevronRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                  <div className="flex space-x-4">
+                    <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                      <Github className="h-5 w-5" />
+                      <span className="sr-only">GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                      <Linkedin className="h-5 w-5" />
+                      <span className="sr-only">LinkedIn</span>
+                    </a>
+                    <a href="mailto:mxj3631@mavs.uta.edu" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                      <Mail className="h-5 w-5" />
+                      <span className="sr-only">Email</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </motion.div>
           </div>
+          <br></br>
           <div className="flex items-center space-x-2">
             <div className="w-[2.4rem] flex justify-center">
               {theme === 'dark' ? (
@@ -440,6 +446,14 @@ export default function Portfolio() {
             <a href="mailto:mxj3631@mavs.uta.edu" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
               <Mail className="h-6 w-6" />
               <span className="sr-only">Email</span>
+            </a>
+            <a href="https://scholar.google.com/citations?user=AwP-oyQAAAAJ&hl" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+              <FaGoogleScholar className="h-6 w-6" />
+              <span className="sr-only">Google Scholar</span>
+            </a>
+            <a href="https://bento.me/meghna-j" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+              <SiBento className="h-6 w-6" />
+              <span className="sr-only">Bento</span>
             </a>
           </div>
         </div>
