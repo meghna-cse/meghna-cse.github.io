@@ -44,7 +44,7 @@ export default function Portfolio() {
     },
     {
       title: "Weather App",
-      description: "A simple yet dynamic weather application that provides real-time weather updates and a 5-day forecast for any city in the world. It also allows users to get weather updates based on their current location.",
+      description: "A simple weather application that provides real-time weather updates and a 5-day forecast for any city in the world. It also allows users to get weather updates based on their current location.",
       media: {
         type: "gif",
         src: "/gifs/WeatherApp.gif"
@@ -66,7 +66,7 @@ export default function Portfolio() {
     },
     {
       title: "Input Validation and Secure Programming",
-      description: "In this project, I focused on developing secure coding practices and robust input validation. Utilizing Java, Spring Boot, and Docker, I designed and implemented features that significantly enhance application security, demonstrating my skills in secure software development.",
+      description: "Fcused on developing secure coding practices and robust input validation. Utilizing Java, Spring Boot, and Docker, I designed and implemented features that enhance application security, demonstrating my skills in secure software development.",
       media: {
         type: "image",
         src: "https://opengraph.githubassets.com/1/meghna-cse/inputVal"
@@ -93,22 +93,25 @@ export default function Portfolio() {
       title: "Research Assistant",
       company: "The University of Texas at Arlington",
       period: "2024",
-      description: "Assisting in LLM research, focusing on model evaluation and vulnerability assessment. Leveraging Python and data analysis skills to support research goals and ensure experimental validity.",
-      insight: "This role allows me to delve deep into the fascinating world of ML, satisfying my curiosity and desire for continuous learning."
+      description: "Assisting in LLM research by improving model accuracy and automating processes for more reliable results.",
+      insight: "This role allows me to delve deep into the fascinating world of ML, satisfying my curiosity and desire for continuous learning.",
+      skills: ["Python", "Data Analysis", "LLMs"]
     },
     {
       title: "Software Developer, Student Assistant",
       company: "The University of Texas at Arlington",
       period: "2023",
-      description: "Drove the upgrade of an internal IT portal to React and Node.js, enhancing security and usability. Implemented SSO authentication and role management functionalities. Collaborated on troubleshooting and maintaining robust application performance.",
-      insight: "Improving user experiences through technology aligns perfectly with my goal of creating meaningful, impactful solutions."
+      description: "Revamped an internal portal using React and Node.js, integrating SSO and resolving critical issues to boost security and usability.",
+      insight: "Improving user experiences through technology aligns perfectly with my goal of creating meaningful, impactful solutions.",
+      skills: ["React", "Node.js", "PHP", "SSO", "MySQL"] 
     },
     {
       title: "Software Engineer, Application Development",
       company: "IBM India",
-      period: "2022",
-      description: "During my four years at IBM, as part of Customer Integration Build Team I excelled in developing and maintaining over 25 third-party integration applications using Java and APIs. I consistently delivered results, migrating legacy applications, integrating payment features and my problem-solving skills were honed through resolving numerous production defects. My four years at IBM were marked by continuous learning and collaboration. I thrived in a team environment, mentoring colleagues on new technologies and coding standards.",
-      insight: "This experience taught me the value of bridging old and new technologies, a metaphor for connecting past wisdom with future innovations."
+      period: "2018 - 2022",
+      description: "Built and maintained 25+ integration apps using IBM Integration Tools, Java and APIs, including secure Apple Pay integration. Drove CI/CD optimization, cloud migration project, and migrated legacy apps, boosting scalability and performance.",
+      insight: "This experience taught me the value of bridging old and new technologies, a metaphor for connecting past wisdom with future innovations.",
+      skills: ["Java", "API Integration", "Jenkins", "IBM MQ", "IBM ACE", "IBM DB2", "Agile Methodologies"]
     }
   ]
 
@@ -117,15 +120,17 @@ export default function Portfolio() {
       title: "SOUL: Simulation of Objects in Unity for Learning",
       publisher: "IEEE Xplorer",
       period: "2019",
-      description: "Explores building interactive e-learning environments using Unity and web technologies, emphasizing practical application development and user engagement.",
+      description: "Investigated innovative methods for creating interactive learning environments using Unity3D. This study emphasized practical applications in education by simulating real-world physics, making concepts easier to grasp through engaging visualizations.",
       link: "https://ieeexplore.ieee.org/document/8968786",
+      skills: ["Unity3D", "Game Development", "E-Learning", "Simulation", "Web Technologies", "Educational Technology"]
     },
     {
-      title: "An Overview: Paradigm Shift of Techniques used for Educational Purposes",
+      title: "Paradigm Shift of Techniques used for Educational Purposes",
       publisher: "IEEE Xplorer",
       period: "2017",
-      description: "Examines the shift towards interactive and visual learning tools in education, useful for understanding user interface and experience design in software solutions.",
-      link: "https://ieeexplore.ieee.org/document/8074992"
+      description: "Analyzed the shift from traditional educational methods to interactive and visual learning tools. Focused on the adoption of digital technologies to enhance user experience, highlighting the importance of intuitive design in creating impactful educational software.",
+      link: "https://ieeexplore.ieee.org/document/8074992",
+      skills: ["Educational Technology", "UI/UX Design", "Interactive Learning", "Digital Learning Tools", "Technology Trends Analysis"]
     }
   ]
 
@@ -392,12 +397,19 @@ export default function Portfolio() {
                   <CardContent>
                     <ul className="space-y-8">
                       {experiences.map((exp, index) => (
-                        <li key={index} className={`border-l-2 ${theme === 'dark' ? 'border-teal-500' : 'border-teal-600'} pl-4 py-2`}>
-                          <h3 className="text-xl font-semibold mb-1">{exp.title}</h3>
-                          <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-2`}>{exp.company} | {exp.period}</p>
-                          <p className="mb-2">{exp.description}</p>
-                          <p className="text-sm italic">&ldquo;{exp.insight}&rdquo;</p>
-                        </li>
+                      <li key={index} className={`border-l-2 ${theme === 'dark' ? 'border-teal-500' : 'border-teal-600'} pl-4 py-2`}>
+                        <h3 className="text-xl font-semibold mb-1">{exp.title}</h3>
+                        <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-2`}>{exp.company} | {exp.period}</p>
+                        <p className="mb-2">{exp.description}</p>
+                        <p className="text-sm italic mb-2">&ldquo;{exp.insight}&rdquo;</p>
+                        <div className="flex flex-wrap gap-2">
+                        {exp.skills.map((skill, skillIndex) => (
+                          <Badge key={skillIndex} variant="outline" className={`${theme === 'dark' ? 'border-teal-500 text-teal-100' : 'border-teal-600 text-teal-800'}`}>
+                          {skill}
+                          </Badge>
+                        ))}
+                        </div>
+                      </li>
                       ))}
                     </ul>
                   </CardContent>
@@ -413,6 +425,13 @@ export default function Portfolio() {
                       </CardHeader>
                       <CardContent className="flex-grow">
                         <p className="mb-4">{research.description}</p>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {research.skills.map((skill, skillIndex) => (
+                          <Badge key={skillIndex} variant="outline" className={`${theme === 'dark' ? 'border-teal-500 text-teal-100' : 'border-teal-600 text-teal-800'}`}>
+                            {skill}
+                          </Badge>
+                          ))}
+                        </div>
                         <Button asChild>
                           <a
                             href={research.link}
