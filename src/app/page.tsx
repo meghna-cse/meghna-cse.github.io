@@ -1,26 +1,132 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ChevronRight, Moon, Sun, Code, Briefcase, FileText } from 'lucide-react'
+import { Github, Linkedin, Mail, ChevronRight, Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
-import { SiBento } from "react-icons/si";
-import { FaGoogleScholar } from "react-icons/fa6";
+import { SiBento } from "react-icons/si"
+import { FaGoogleScholar } from "react-icons/fa6"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Badge } from "@/components/ui/badge"
 import { Switch } from "@/components/ui/switch"
 
+// Dynamically import the TabsSection
+const TabsSection = dynamic(() => import('@/components/TabsSection'), {
+  loading: () => <TabsSectionSkeleton />,
+  ssr: false
+})
+
+interface HeaderProps {
+  theme: string;
+  toggleTheme: () => void;
+}
+
+// Header component for immediate loading
+const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
+  <header className="flex flex-col sm:flex-row justify-between items-center mb-16 gap-4">
+    <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="w-48 h-48 sm:w-64 sm:h-64 flex-shrink-0 relative profile-image-container"
+      >
+        <div className={`circle-effect ${theme === 'dark' ? 'circle-effect-dark' : 'circle-effect-light'}`}></div>
+        <Image
+          src="/images/light-mode-profile.jpeg"
+          alt="Meghna J. - Light Mode"
+          width={256}
+          height={256}
+          className="profile-image-light"
+          priority
+        />  
+        <Image
+          src="/images/dark-mode-profile.jpeg"
+          alt="Meghna J. - Dark Mode"
+          width={256}
+          height={256}
+          className="profile-image-dark"
+          priority
+        />
+      </motion.div>
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-center sm:text-left"
+      >
+        <h2 className="text-3xl sm:text-4xl font-bold mb-4 dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Meghna J.</h2>
+        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6">
+          Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. <br></br>
+          I enjoy solving problems through clean, functional code and seamless API integration.
+        </p>
+        <div className="flex flex-col items-center sm:items-start space-y-4 sm:space-y-0">
+          <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <Button asChild className="bg-primary text-white hover:bg-primary/90 dark:bg-primary-dark dark:text-gray-900 dark:hover:bg-primary-dark/90">
+              <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                View Resume <ChevronRight className="ml-2 h-4 w-4" />
+              </a>
+            </Button>
+            <div className="flex space-x-4">
+              <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                <Github className="h-5 w-5" />
+                <span className="sr-only">GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </a>
+              <a href="mailto:mxj3631@mavs.uta.edu" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Email</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+    <div className="flex items-center space-x-2">
+      <div className="w-[2.4rem] flex justify-center">
+        {theme === 'dark' ? (
+          <Moon className="h-[1.2rem] w-[1.2rem]" />
+        ) : (
+          <Sun className="h-[1.2rem] w-[1.2rem]" />
+        )}
+      </div>
+      <Switch
+        checked={theme === 'dark'}
+        onCheckedChange={toggleTheme}
+        className="data-[state=checked]:bg-primary"
+      />
+    </div>
+    </header>
+)
+
+// Skeleton loader for tabs section
+const TabsSectionSkeleton: React.FC = () => (
+  <div className="space-y-4 animate-pulse">
+    <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded-lg" />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {[1, 2, 3, 4].map((i) => (
+        <div key={i} className="h-[400px] bg-gray-200 dark:bg-gray-700 rounded-lg" />
+      ))}
+    </div>
+  </div>
+)
+
 export default function Portfolio() {
-  const [theme, setTheme] = useState('dark')
-  const [activeTab, setActiveTab] = useState('projects')
-  const [projectCategory, setProjectCategory] = useState('All')
+  const [theme, setTheme] = useState<string>('dark')
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light'
+    const savedTheme = localStorage.getItem('theme') ?? 'dark'
     setTheme(savedTheme)
     document.documentElement.classList.toggle('dark', savedTheme === 'dark')
+    setIsLoading(false)
+
+    if (!document.documentElement.classList.contains('dark')) {
+      document.documentElement.classList.add('dark')
+    }
   }, [])
 
   const toggleTheme = () => {
@@ -30,113 +136,9 @@ export default function Portfolio() {
     document.documentElement.classList.toggle('dark', newTheme === 'dark')
   }
 
-  const projects = [
-    {
-      title: "CloakDocs - Image Masking Web App",
-      description: "This app allows users to upload images (JPG, PNG), mask information by drawing over specific areas, and download the masked image. Built using Streamlit, the app features a simple and intuitive interface, making it easy for users to protect personal information without requiring a login.",
-      media: {
-        type: "gif",
-        src: "/gifs/CloakDocs.gif"
-      },
-      link: "https://github.com/meghna-cse/cloakdocs-web-app",
-      technologies: ["Python", "Streamlit"],
-      category: "Backend Engineering"
-    },
-    {
-      title: "Weather App",
-      description: "A simple weather application that provides real-time weather updates and a 5-day forecast for any city in the world. It also allows users to get weather updates based on their current location.",
-      media: {
-        type: "gif",
-        src: "/gifs/WeatherApp.gif"
-      },
-      link: "https://github.com/meghna-cse/weather-app",
-      technologies: ["React", "Flask", "OpenWeatherMap API"],
-      category: "Web & Data Applications"
-    },
-    {
-      title: "Beaver - LMS",
-      description: "A Learning Management System web application designed to manage and present web data effectively. My contributions focused on the frontend and backend integration. This project enhanced my full-stack development skills and database management.",
-      media: {
-        type: "gif",
-        src: "/gifs/Beaver.gif"
-      },
-      link: "https://github.com/meghna-cse/beaver",
-      technologies: ["React", "Node.js", "Laravel", "MySQL/PostgreSQL"],
-      category: "Full Stack Development"
-    },
-    {
-      title: "Input Validation and Secure Programming",
-      description: "Fcused on developing secure coding practices and robust input validation. Utilizing Java, Spring Boot, and Docker, I designed and implemented features that enhance application security, demonstrating my skills in secure software development.",
-      media: {
-        type: "image",
-        src: "https://opengraph.githubassets.com/1/meghna-cse/inputVal"
-      },
-      link: "https://github.com/meghna-cse/inputVal",
-      technologies: ["Java", "Spring Boot", "Docker"],
-      category: "Backend Engineering"
-    },
-    {
-      title: "SOUL: Simulation Objects in Unity for Learning",
-      description: "A project designed to make learning theoretical concepts interactive by simulating rigid body physics in real-time. Using Unity3D, C#, JavaScript, HTML, and CSS, created an engaging platform that makes learning theoretical physics interactive and accessible.",
-      media: {
-        type: "gif",
-        src: "/gifs/SOUL.gif"
-      },
-      link: "https://github.com/meghna-cse/SOUL",
-      technologies: ["Unity3D", "C#", "JavaScript", "HTML", "CSS"],
-      category: "Web & Data Applications"
-    }
-  ]
-
-  const experiences = [
-    {
-      title: "Research Assistant",
-      company: "The University of Texas at Arlington",
-      period: "2024",
-      description: "Assisting in LLM research by improving model accuracy and automating processes for more reliable results.",
-      insight: "This role allows me to delve deep into the fascinating world of ML, satisfying my curiosity and desire for continuous learning.",
-      skills: ["Python", "Data Analysis", "LLMs"]
-    },
-    {
-      title: "Software Developer, Student Assistant",
-      company: "The University of Texas at Arlington",
-      period: "2023",
-      description: "Revamped an internal portal using React and Node.js, integrating SSO and resolving critical issues to boost security and usability.",
-      insight: "Improving user experiences through technology aligns perfectly with my goal of creating meaningful, impactful solutions.",
-      skills: ["React", "Node.js", "PHP", "SSO", "MySQL"] 
-    },
-    {
-      title: "Software Engineer, Application Development",
-      company: "IBM India",
-      period: "2018 - 2022",
-      description: "Built and maintained 25+ integration apps using IBM Integration Tools, Java and APIs, including secure Apple Pay integration. Drove CI/CD optimization, cloud migration project, and migrated legacy apps, boosting scalability and performance.",
-      insight: "This experience taught me the value of bridging old and new technologies, a metaphor for connecting past wisdom with future innovations.",
-      skills: ["Java", "API Integration", "Jenkins", "IBM MQ", "IBM ACE", "IBM DB2", "Agile Methodologies"]
-    }
-  ]
-
-  const researchWorks = [
-    {
-      title: "SOUL: Simulation of Objects in Unity for Learning",
-      publisher: "IEEE Xplorer",
-      period: "2019",
-      description: "Investigated innovative methods for creating interactive learning environments using Unity3D. This study emphasized practical applications in education by simulating real-world physics, making concepts easier to grasp through engaging visualizations.",
-      link: "https://ieeexplore.ieee.org/document/8968786",
-      skills: ["Unity3D", "Game Development", "E-Learning", "Simulation", "Web Technologies", "Educational Technology"]
-    },
-    {
-      title: "Paradigm Shift of Techniques used for Educational Purposes",
-      publisher: "IEEE Xplorer",
-      period: "2017",
-      description: "Analyzed the shift from traditional educational methods to interactive and visual learning tools. Focused on the adoption of digital technologies to enhance user experience, highlighting the importance of intuitive design in creating impactful educational software.",
-      link: "https://ieeexplore.ieee.org/document/8074992",
-      skills: ["Educational Technology", "UI/UX Design", "Interactive Learning", "Digital Learning Tools", "Technology Trends Analysis"]
-    }
-  ]
-
-  const filteredProjects = projectCategory === 'All' 
-    ? projects 
-    : projects.filter(project => project.category === projectCategory)
+  if (isLoading) {
+    return <TabsSectionSkeleton />
+  }
 
   return (
     <div className={`min-h-screen font-sans ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-gray-100 text-gray-900'}`}>
@@ -218,239 +220,12 @@ export default function Portfolio() {
         }
       `}</style>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <header className="flex flex-col sm:flex-row justify-between items-center mb-16 gap-4">
-          <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-              className="w-48 h-48 sm:w-64 sm:h-64 flex-shrink-0 relative profile-image-container"
-            >
-              <div className={`circle-effect ${theme === 'dark' ? 'circle-effect-dark' : 'circle-effect-light'}`}></div>
-              <Image
-                src="/images/light-mode-profile.jpeg"
-                alt="Meghna J. - Light Mode"
-                width={256}
-                height={256}
-                className="profile-image-light"
-              />  
-              <Image
-                src="/images/dark-mode-profile.jpeg"
-                alt="Meghna J. - Dark Mode"
-                width={256}
-                height={256}
-                className="profile-image-dark"
-              />
-            </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
-              className="text-center sm:text-left"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4 dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Meghna J.</h2>
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6">
-                Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. <br></br>
-                I enjoy solving problems through clean, functional code and seamless API integration.
-              </p>
-              <div className="flex flex-col items-center sm:items-start space-y-4 sm:space-y-0">
-                <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-                  <Button asChild className="bg-primary text-white hover:bg-primary/90 dark:bg-primary-dark dark:text-gray-900 dark:hover:bg-primary-dark/90">
-                    <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                      View Resume <ChevronRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
-                  <div className="flex space-x-4">
-                    <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                      <Github className="h-5 w-5" />
-                      <span className="sr-only">GitHub</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                      <Linkedin className="h-5 w-5" />
-                      <span className="sr-only">LinkedIn</span>
-                    </a>
-                    <a href="mailto:mxj3631@mavs.uta.edu" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                      <Mail className="h-5 w-5" />
-                      <span className="sr-only">Email</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-          <br></br>
-          <div className="flex items-center space-x-2">
-            <div className="w-[2.4rem] flex justify-center">
-              {theme === 'dark' ? (
-                <Moon className="h-[1.2rem] w-[1.2rem]" />
-              ) : (
-                <Sun className="h-[1.2rem] w-[1.2rem]" />
-              )}
-            </div>
-            <Switch
-              checked={theme === 'dark'}
-              onCheckedChange={toggleTheme}
-              className="data-[state=checked]:bg-primary"
-            />
-          </div>
-        </header>
-
-        <Tabs defaultValue="projects" className="mb-12" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="projects" className="flex items-center justify-center">
-              <Code className="mr-2 h-4 w-4" />
-              Projects
-            </TabsTrigger>
-            <TabsTrigger value="experience" className="flex items-center justify-center">
-              <Briefcase className="mr-2 h-4 w-4" />
-              Experience
-            </TabsTrigger>
-            <TabsTrigger value="research" className="flex items-center justify-center">
-              <FileText className="mr-2 h-4 w-4" />
-              Research
-            </TabsTrigger>
-          </TabsList>
-
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <TabsContent value="projects">
-                <div className="mb-6">
-                  <div className="flex flex-wrap gap-2">
-                    {['All', 'Full Stack Development', 'Backend Engineering', 'Web & Data Applications'].map((category) => (
-                      <Button
-                        key={category}
-                        variant={projectCategory === category ? "default" : "outline"}
-                        onClick={() => setProjectCategory(category)}
-                        className="mb-2"
-                      >
-                        {category}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  
-                  {filteredProjects.map((project, index) => (
-                    <Card key={index} className="flex flex-col h-full max-h-[600px]">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-bold truncate">{project.title}</CardTitle>
-                        <CardDescription className="line-clamp-3">{project.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="flex-grow overflow-y-auto">
-                        <div className="relative mb-4 h-48">
-                          {project.media.type === 'image' ? (
-                            <img 
-                              src={project.media.src} 
-                              alt={project.title} 
-                              className="w-full h-full object-cover rounded-md"
-                            />
-                          ) : project.media.type === 'gif' ? (
-                            <img 
-                              src={project.media.src} 
-                              alt={project.title} 
-                              className="w-full h-full object-cover rounded-md"
-                            />
-                          ) : project.media.type === 'youtube' ? (
-                            <iframe
-                              width="100%"
-                              height="100%"
-                              src={project.media.src}
-                              title={project.title}
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                              className="rounded-md"
-                            ></iframe>
-                          ) : null}
-                        </div>
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {project.technologies.map((tech, techIndex) => (
-                            <Badge key={techIndex} variant="secondary" className={`${theme === 'dark' ? 'bg-teal-800 text-teal-100' : 'bg-teal-100 text-teal-800'}`}>
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                        <Button asChild>
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center"
-                          >
-                            Explore Project <ChevronRight className="h-4 w-4 ml-1" />
-                          </a>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-              <TabsContent value="experience">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-2xl font-bold">Relevant Experience</CardTitle>
-                    <CardDescription>My journey as a Software Engineer</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-8">
-                      {experiences.map((exp, index) => (
-                      <li key={index} className={`border-l-2 ${theme === 'dark' ? 'border-teal-500' : 'border-teal-600'} pl-4 py-2`}>
-                        <h3 className="text-xl font-semibold mb-1">{exp.title}</h3>
-                        <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'} mb-2`}>{exp.company} | {exp.period}</p>
-                        <p className="mb-2">{exp.description}</p>
-                        <p className="text-sm italic mb-2">&ldquo;{exp.insight}&rdquo;</p>
-                        <div className="flex flex-wrap gap-2">
-                        {exp.skills.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="outline" className={`${theme === 'dark' ? 'border-teal-500 text-teal-100' : 'border-teal-600 text-teal-800'}`}>
-                          {skill}
-                          </Badge>
-                        ))}
-                        </div>
-                      </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              <TabsContent value="research">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {researchWorks.map((research, index) => (
-                    <Card key={index} className="flex flex-col h-full">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-bold">{research.title}</CardTitle>
-                        <CardDescription>{research.publisher} | {research.period}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="flex-grow">
-                        <p className="mb-4">{research.description}</p>
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {research.skills.map((skill, skillIndex) => (
-                          <Badge key={skillIndex} variant="outline" className={`${theme === 'dark' ? 'border-teal-500 text-teal-100' : 'border-teal-600 text-teal-800'}`}>
-                            {skill}
-                          </Badge>
-                          ))}
-                        </div>
-                        <Button asChild>
-                          <a
-                            href={research.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center"
-                          >
-                            Read the paper <ChevronRight className="h-4 w-4 ml-1" />
-                          </a>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-            </motion.div>
-
-        </Tabs>
+        <Header theme={theme} toggleTheme={toggleTheme} />
+        <Suspense fallback={<TabsSectionSkeleton />}>
+          <TabsSection theme={theme} />
+        </Suspense>
       </div>
+
       <footer className={`py-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'} transition-colors duration-300`}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center space-y-4">
           <div className="flex space-x-6">
