@@ -119,14 +119,10 @@ export default function Portfolio() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') ?? 'dark'
+    const savedTheme = localStorage.getItem('theme') || 'light'
     setTheme(savedTheme)
     document.documentElement.classList.toggle('dark', savedTheme === 'dark')
     setIsLoading(false)
-
-    if (!document.documentElement.classList.contains('dark')) {
-      document.documentElement.classList.add('dark')
-    }
   }, [])
 
   const toggleTheme = () => {
@@ -221,6 +217,7 @@ export default function Portfolio() {
       `}</style>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Header theme={theme} toggleTheme={toggleTheme} />
+
         <Suspense fallback={<TabsSectionSkeleton />}>
           <TabsSection theme={theme} />
         </Suspense>
