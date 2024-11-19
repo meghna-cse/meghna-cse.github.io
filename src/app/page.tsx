@@ -29,22 +29,22 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
-        className="w-48 h-48 sm:w-64 sm:h-64 flex-shrink-0 relative profile-image-container"
+        className="w-40 h-40 sm:w-48 sm:h-48 flex-shrink-0 relative"
       >
         <div className={`circle-effect ${theme === 'dark' ? 'circle-effect-dark' : 'circle-effect-light'}`}></div>
         <Image
           src="/images/light-mode-profile.jpeg"
           alt="Meghna J. - Light Mode"
-          width={256}
-          height={256}
+          width={192}
+          height={192}
           className="profile-image-light"
           priority
         />  
         <Image
           src="/images/dark-mode-profile.jpeg"
           alt="Meghna J. - Dark Mode"
-          width={256}
-          height={256}
+          width={192}
+          height={192}
           className="profile-image-dark"
           priority
         />

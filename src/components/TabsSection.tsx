@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Code, Briefcase, FileText } from 'lucide-react'
+import { Code, Briefcase, GraduationCap, FileText } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ProjectsTab from '@/components/ui/ProjectsTab'
 import ExperienceTab from '@/components/ui/ExperienceTab'
+import EducationTab from '@/components/ui/EducationTab'
 import ResearchTab from '@/components/ui/ResearchTab'
 
 interface TabsSectionProps {
@@ -16,7 +17,7 @@ const TabsSection: React.FC<TabsSectionProps> = ({ theme }) => {
 
   return (
     <Tabs defaultValue="projects" className="mb-12" onValueChange={setActiveTab}>
-      <TabsList className="grid w-full grid-cols-3">
+      <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="projects" className="flex items-center justify-center">
           <Code className="mr-2 h-4 w-4" />
           Projects
@@ -24,6 +25,10 @@ const TabsSection: React.FC<TabsSectionProps> = ({ theme }) => {
         <TabsTrigger value="experience" className="flex items-center justify-center">
           <Briefcase className="mr-2 h-4 w-4" />
           Experience
+        </TabsTrigger>
+        <TabsTrigger value="education" className="flex items-center justify-center">
+          <GraduationCap className="mr-2 h-4 w-4" />
+          Education
         </TabsTrigger>
         <TabsTrigger value="research" className="flex items-center justify-center">
           <FileText className="mr-2 h-4 w-4" />
@@ -47,6 +52,9 @@ const TabsSection: React.FC<TabsSectionProps> = ({ theme }) => {
         
         <TabsContent value="experience">
           <ExperienceTab theme={theme} />
+        </TabsContent>
+        <TabsContent value="education">
+          <EducationTab theme={theme} />
         </TabsContent>
         <TabsContent value="research">
           <ResearchTab theme={theme} />
