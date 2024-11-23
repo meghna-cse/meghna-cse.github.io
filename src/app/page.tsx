@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
         transition={{ duration: 0.3 }}
         className="w-40 h-40 sm:w-48 sm:h-48 flex-shrink-0 relative"
       >
-        <div className={`circle-effect ${theme === 'dark' ? 'circle-effect-dark' : 'circle-effect-light'}`}></div>
+        <div className={`circle-effect ${theme === 'dark' ? 'circle-effect-light' : 'circle-effect-light'}`}></div>
         <Image
           src="/images/light-mode-profile.jpeg"
           alt="Meghna J. - Light Mode"
@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
           priority
         />  
         <Image
-          src="/images/dark-mode-profile.jpeg"
+          src="/images/light-mode-profile.jpeg"
           alt="Meghna J. - Dark Mode"
           width={192}
           height={192}
@@ -57,29 +57,40 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
       >
         <h2 className="text-3xl sm:text-4xl font-bold mb-4 dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Meghna J.</h2>
         <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6">
-          Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. <br></br>
+          Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. <br />
           I enjoy solving problems through clean, functional code and seamless API integration.
         </p>
         <div className="flex flex-col items-center sm:items-start space-y-4 sm:space-y-0">
           <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Button asChild className="bg-primary text-white hover:bg-primary/90 dark:bg-primary-dark dark:text-gray-900 dark:hover:bg-primary-dark/90">
+            <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
               <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
                 View Resume <ChevronRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
             <div className="flex space-x-4">
-              <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                <Github className="h-5 w-5" />
-                <span className="sr-only">GitHub</span>
-              </a>
-              <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                <Linkedin className="h-5 w-5" />
-                <span className="sr-only">LinkedIn</span>
-              </a>
-              <a href="mailto:mxj3631@mavs.uta.edu" className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
-              </a>
+              {[
+                { href: "https://github.com/meghna-cse", icon: Github, label: "GitHub" },
+                { href: "https://www.linkedin.com/in/meghna-j/", icon: Linkedin, label: "LinkedIn" },
+                { href: "mailto:mxj3631@mavs.uta.edu", icon: Mail, label: "Email" },
+              ].map((link, index) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-primary dark:text-gray-300 dark:hover:text-primary-dark"
+                  whileHover={{ scale: 1.2,
+                    rotate: 5
+                  }}
+                  whileTap={{ scale: 0.9 }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                >
+                  <link.icon className="h-5 w-5" />
+                  <span className="sr-only">{link.label}</span>
+                </motion.a>
+              ))}
             </div>
           </div>
         </div>
@@ -88,9 +99,9 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
     <div className="flex items-center space-x-2">
       <div className="w-[2.4rem] flex justify-center">
         {theme === 'dark' ? (
-          <Moon className="h-[1.2rem] w-[1.2rem]" />
+          <Moon className="h-[1.2rem] w-[1.2rem] text-muted-foreground" />
         ) : (
-          <Sun className="h-[1.2rem] w-[1.2rem]" />
+          <Sun className="h-[1.2rem] w-[1.2rem] text-muted-foreground" />
         )}
       </div>
       <Switch
@@ -99,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
         className="data-[state=checked]:bg-primary"
       />
     </div>
-    </header>
+  </header>
 )
 
 // Skeleton loader for tabs section
@@ -137,7 +148,7 @@ export default function Portfolio() {
   }
 
   return (
-    <div className={`min-h-screen font-sans ${theme === 'dark' ? 'bg-gray-900 text-gray-100' : 'bg-gray-100 text-gray-900'}`}>
+    <div className={`min-h-screen font-sans ${theme === 'dark' ? 'dark' : ''}`}>
       <style jsx global>{`
         * {
           transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -223,26 +234,26 @@ export default function Portfolio() {
         </Suspense>
       </div>
 
-      <footer className={`py-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'} transition-colors duration-300`}>
+      <footer className="py-8 bg-muted transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center space-y-4">
           <div className="flex space-x-6">
-            <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+            <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
               <Github className="h-6 w-6" />
               <span className="sr-only">GitHub</span>
             </a>
-            <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+            <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
               <Linkedin className="h-6 w-6" />
               <span className="sr-only">LinkedIn</span>
             </a>
-            <a href="mailto:mxj3631@mavs.uta.edu" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+            <a href="mailto:mxj3631@mavs.uta.edu" className="text-muted-foreground hover:text-primary transition-colors duration-300">
               <Mail className="h-6 w-6" />
               <span className="sr-only">Email</span>
             </a>
-            <a href="https://scholar.google.com/citations?user=AwP-oyQAAAAJ&hl" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+            <a href="https://scholar.google.com/citations?user=AwP-oyQAAAAJ&hl" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
               <FaGoogleScholar className="h-6 w-6" />
               <span className="sr-only">Google Scholar</span>
             </a>
-            <a href="https://bento.me/meghna-j" target="_blank" rel="noopener noreferrer" className={`${theme === 'dark' ? 'text-gray-300 hover:text-teal-300' : 'text-gray-600 hover:text-teal-600'} transition-colors duration-300`}>
+            <a href="https://bento.me/meghna-j" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
               <SiBento className="h-6 w-6" />
               <span className="sr-only">Bento</span>
             </a>

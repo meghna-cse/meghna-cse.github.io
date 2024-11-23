@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { Code, Briefcase, GraduationCap, FileText } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Code, FileText } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ProjectsTab from '@/components/ui/ProjectsTab'
-import ExperienceTab from '@/components/ui/ExperienceTab'
-import EducationTab from '@/components/ui/EducationTab'
-import ResearchTab from '@/components/ui/ResearchTab'
+import Projects from '@/components/ui/ProjectsTab'
+import Timeline from '@/components/TimelineTab'
 
 interface TabsSectionProps {
   theme: string;
@@ -13,53 +12,53 @@ interface TabsSectionProps {
 
 const TabsSection: React.FC<TabsSectionProps> = ({ theme }) => {
   const [activeTab, setActiveTab] = useState('projects')
-  const [projectCategory, setProjectCategory] = useState('All')
 
   return (
     <Tabs defaultValue="projects" className="mb-12" onValueChange={setActiveTab}>
-      <TabsList className="grid w-full grid-cols-4">
-        <TabsTrigger value="projects" className="flex items-center justify-center">
-          <Code className="mr-2 h-4 w-4" />
-          Projects
-        </TabsTrigger>
-        <TabsTrigger value="experience" className="flex items-center justify-center">
-          <Briefcase className="mr-2 h-4 w-4" />
-          Experience
-        </TabsTrigger>
-        <TabsTrigger value="education" className="flex items-center justify-center">
-          <GraduationCap className="mr-2 h-4 w-4" />
-          Education
-        </TabsTrigger>
-        <TabsTrigger value="research" className="flex items-center justify-center">
-          <FileText className="mr-2 h-4 w-4" />
-          Research
-        </TabsTrigger>
+      <TabsList className="grid w-full grid-cols-2">
+      {[
+          { value: "projects", icon: Code, label: "Projects" },
+          { value: "timeline", icon: FileText, label: "Career Journey" },
+        ].map((tab) => (
+          <TabsTrigger 
+            key={tab.value}
+            value={tab.value} 
+            className="flex items-center justify-center"
+          >
+            <tab.icon className="mr-2 h-4 w-4" />
+            {tab.label}
+          </TabsTrigger>
+        ))}
       </TabsList>
 
-      <motion.div
-        key={activeTab}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <TabsContent value="projects">
-          <ProjectsTab 
-            theme={theme} 
-            projectCategory={projectCategory} 
-            setProjectCategory={setProjectCategory} 
-          />
-        </TabsContent>
-        
-        <TabsContent value="experience">
-          <ExperienceTab theme={theme} />
-        </TabsContent>
-        <TabsContent value="education">
-          <EducationTab theme={theme} />
-        </TabsContent>
-        <TabsContent value="research">
-          <ResearchTab theme={theme} />
-        </TabsContent>
-      </motion.div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeTab}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          <TabsContent value="projects">
+            <Card>
+              <CardContent>
+                <Projects />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="timeline">
+            <Card>
+              <CardHeader>
+                <CardDescription className="text-muted-foreground">Hover over the timeline to reveal more details</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Timeline />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </motion.div>
+      </AnimatePresence>
     </Tabs>
   )
 }
