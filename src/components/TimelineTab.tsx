@@ -1,7 +1,6 @@
-import React from 'react'
-import { useState, useRef } from 'react'
-import { motion } from 'framer-motion'
-import { Briefcase, GraduationCap } from 'lucide-react'
+import React, { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -13,7 +12,7 @@ interface TimelineItem {
   period: string
   description: string
   skills?: string[]
-  relevance: "high" | "medium" | "low"
+  logo: string
 }
 
 const timelineData: TimelineItem[] = [
@@ -24,7 +23,7 @@ const timelineData: TimelineItem[] = [
     period: "Sep 2024 - Present",
     description: "Assisting in LLM research by improving model accuracy and automating processes for more reliable results.",
     skills: ["Python", "Data Analysis", "LLMs"],
-    relevance: "high"
+    logo: '/logos/uta.png'
   },
   {
     type: "experience",
@@ -33,7 +32,7 @@ const timelineData: TimelineItem[] = [
     period: "May 2023 - Aug 2023",
     description: "Revamped an internal portal using React and Node.js, integrating SSO and resolving critical issues to boost security and usability.",
     skills: ["React", "Node.js", "PHP", "SSO", "MySQL"],
-    relevance: "high"
+    logo: '/logos/fablab.png'
   },
   {
     type: "education",
@@ -41,7 +40,7 @@ const timelineData: TimelineItem[] = [
     organization: "The University of Texas at Arlington",
     period: "Aug 2022 - May 2024",
     description: "Focused on advanced topics in Machine Learning, Cloud Computing, and Distributed Systems.",
-    relevance: "medium"
+    logo: '/logos/uta.png'
   },
   {
     type: "experience",
@@ -50,7 +49,7 @@ const timelineData: TimelineItem[] = [
     period: "Jul 2018 - Jul 2022",
     description: "Built and maintained 25+ integration apps using IBM Integration Tools, Java and APIs, including secure Apple Pay integration. Drove CI/CD optimization, cloud migration project, and migrated legacy apps, boosting scalability and performance.",
     skills: ["Java", "API Integration", "Jenkins", "IBM MQ", "IBM ACE", "IBM DB2", "Agile Methodologies"],
-    relevance: "high"
+    logo: '/logos/ibm.png'
   },
   {
     type: "education",
@@ -58,7 +57,7 @@ const timelineData: TimelineItem[] = [
     organization: "NMIMS University",
     period: "Aug 2014 - May 2018",
     description: "Focused on Computer Science fundamentals and Software Engineering.",
-    relevance: "medium"
+    logo: '/logos/nmims.png'
   }
 ]
 
@@ -68,27 +67,37 @@ interface TimelineItemProps {
   isVisible: boolean
 }
 
-const TimelineItem = ({ item, isVisible }: TimelineItemProps) => {
+const TimelineItem: React.FC<{ item: TimelineItem; isVisible: boolean; highlight: boolean }> = ({ item, isVisible, highlight }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-      transition={{ duration: 0.3 }}
-      className={`mb-8 flex ${isVisible ? '' : 'hidden'}`}
+      initial={{ opacity: 0, height: 0 }}
+      animate={{ 
+        opacity: isVisible ? 1 : 0,
+        height: isVisible ? 'auto' : 0,
+        backgroundColor: highlight ? "rgba(13, 148, 136, 0.1)" : "transparent"
+      }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className={`relative ${highlight ? 'shadow-lg' : ''}`}
     >
-      <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ring-8 ring-white dark:ring-gray-900 ${item.type === 'experience' ? 'bg-teal-700' : 'bg-teal-400'}`}>
-        {item.type === 'experience' ? (
-          <Briefcase className="h-6 w-6 text-primary-foreground" />
-        ) : (
-          <GraduationCap className="h-6 w-6 text-primary-foreground" />
-        )}
-      </div>
-      <div className="ml-4">
-        <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-        <p className="text-sm text-muted-foreground">{item.organization}</p>
-        <p className="text-sm text-muted-foreground">{item.period}</p>
-        <p className="mt-2 text-foreground">{item.description}</p>
-        {item.skills && (
+      <div className="flex items-start mb-6">
+        <div className="absolute left-0 w-12 h-12">
+          <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center overflow-hidden relative z-10 ring-8 bg-background dark:bg-white ring-white dark:ring-gray-900'}`}>
+            <Image
+              src={item.logo}
+              alt={`${item.organization} logo`}
+              width={48}
+              height={48}
+              className="object-cover"
+              priority
+            />
+          </div>
+        </div>
+        <div className="flex-grow pl-16">
+          <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
+          <p className="text-sm text-muted-foreground">{item.organization}</p>
+          <p className="text-sm text-muted-foreground">{item.period}</p>
+          <p className="mt-2 text-foreground">{item.description}</p>
+          {item.skills && (
           <div className="mt-2 flex flex-wrap gap-2">
             {item.skills.map((skill: string, index: number) => (
               <Badge key={index} variant="outline" className="border-teal-600 text-teal-800 dark:border-teal-500 dark:text-teal-100">
@@ -97,39 +106,96 @@ const TimelineItem = ({ item, isVisible }: TimelineItemProps) => {
             ))}
           </div>
         )}
+        </div>
       </div>
     </motion.div>
   )
 }
 
 export default function Timeline() {
-  const [visibleItems, setVisibleItems] = useState<("high" | "medium" | "low")[]>(['high'])
+  const [showEducation, setShowEducation] = useState(false)
+  const [highlightEducation, setHighlightEducation] = useState(false)
   const timelineRef = useRef<HTMLDivElement>(null)
+  const [lineHeight, setLineHeight] = useState(0)
 
-  const handleHover = () => {
-    if (!visibleItems.includes('medium')) {
-      setVisibleItems(['high', 'medium'])
+  const updateTimelineHeight = () => {
+    if (timelineRef.current) {
+      const visibleItems = timelineRef.current.querySelectorAll('.timeline-item:not([style*="height: 0px"])')
+      if (visibleItems.length > 0) {
+        const lastItem = visibleItems[visibleItems.length - 1] as HTMLElement
+        const firstItem = visibleItems[0] as HTMLElement
+        const height = lastItem.offsetTop + lastItem.offsetHeight - firstItem.offsetTop
+        setLineHeight(height)
+      }
     }
   }
 
-  const handleShowAll = () => {
-    setVisibleItems(['high', 'medium', 'low'])
+  useEffect(() => {
+    updateTimelineHeight()
+    const observer = new MutationObserver(updateTimelineHeight)
+    if (timelineRef.current) {
+      observer.observe(timelineRef.current, { 
+        childList: true, 
+        subtree: true, 
+        attributes: true 
+      })
+    }
+    window.addEventListener('resize', updateTimelineHeight)
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', updateTimelineHeight)
+    }
+  }, [showEducation])
+
+  const toggleEducation = () => {
+    if (!showEducation) {
+      setShowEducation(true)
+      setTimeout(() => setHighlightEducation(true), 500)
+      setTimeout(() => setHighlightEducation(false), 2500)
+    } else {
+      setShowEducation(false)
+      setHighlightEducation(false)
+    }
   }
 
   return (
-    <div
-      ref={timelineRef}
-      className="relative"
-      onMouseEnter={handleHover}
-    >
-      <div className="absolute left-6 top-0 w-0.5 bg-border" style={{ height: `calc(100% - ${visibleItems.length < 3 ? '4rem' : '0'})` }} />
-      {timelineData.map((item, index) => (
-      <TimelineItem
-        key={index}
-        item={item}
-        isVisible={visibleItems.includes(item.relevance)}
+    <div className="relative" ref={timelineRef}>
+      <div 
+        className="absolute left-[23px] w-0.5 bg-border transition-all duration-500 ease-in-out"
+        style={{ 
+          height: `${lineHeight}px`,
+          top: '24px'
+        }}
       />
-      ))}
+      <div className="space-y-0">
+        {timelineData.map((item, index) => (
+          <div 
+            key={`${item.type}-${index}`} 
+            className={`timeline-item ${item.type === 'experience' || showEducation ? 'block' : 'hidden'}`}
+          >
+            <TimelineItem 
+              item={item} 
+              isVisible={item.type === 'experience' || showEducation}
+              highlight={item.type === 'education' && highlightEducation}
+            />
+          </div>
+        ))}
+      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="ml-16"
+      >
+        <Button
+          variant="outline"
+          size="sm"
+          className="mt-4"
+          onClick={toggleEducation}
+        >
+          {showEducation ? 'Hide Education' : 'View Education'}
+        </Button>
+      </motion.div>
     </div>
   )
 }

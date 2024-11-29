@@ -9,6 +9,7 @@ import { SiBento } from "react-icons/si"
 import { FaGoogleScholar } from "react-icons/fa6"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 // Dynamically import the TabsSection
 const TabsSection = dynamic(() => import('@/components/TabsSection'), {
@@ -93,6 +94,31 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
               ))}
             </div>
           </div>
+        </div>
+        <div className="flex gap-4 mt-6 justify-center sm:justify-start">
+          <TooltipProvider>
+            {[
+              { src: "/logos/ibm.png", alt: "IBM" , width : 124},
+              { src: "/logos/nationwide.png", alt: "Nationwide Building Society", width : 380 },
+              { src: "/logos/fablab.png", alt: "FabLab UT Arlington", width : 49 },
+              { src: "/logos/uta.png", alt: "UT Arlington", width : 121 }
+            ].map((logo, index) => (
+              <Tooltip key={index}>
+                <TooltipTrigger>
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={50}
+                    height={50}
+                    className="hover:opacity-80 transition-opacity"
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{logo.alt}</p>
+                </TooltipContent>
+              </Tooltip>
+            ))}
+          </TooltipProvider>
         </div>
       </motion.div>
     </div>
