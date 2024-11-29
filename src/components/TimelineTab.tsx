@@ -32,7 +32,7 @@ const timelineData: TimelineItem[] = [
     period: "May 2023 - Aug 2023",
     description: "Revamped an internal portal using React and Node.js, integrating SSO and resolving critical issues to boost security and usability.",
     skills: ["React", "Node.js", "PHP", "SSO", "MySQL"],
-    logo: '/logos/fablab.png'
+    logo: '/logos/fablab.PNG'
   },
   {
     type: "education",

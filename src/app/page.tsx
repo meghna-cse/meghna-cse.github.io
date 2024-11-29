@@ -100,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
             {[
               { src: "/logos/ibm.png", alt: "IBM" , width : 124},
               { src: "/logos/nationwide.png", alt: "Nationwide Building Society", width : 380 },
-              { src: "/logos/fablab.png", alt: "FabLab UT Arlington", width : 49 },
+              { src: "/logos/fablab.PNG", alt: "FabLab UT Arlington", width : 49 },
               { src: "/logos/uta.png", alt: "UT Arlington", width : 121 }
             ].map((logo, index) => (
               <Tooltip key={index}>
