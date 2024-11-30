@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { Code, Star, BookOpen } from 'lucide-react'
+import { Github, Info } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -10,7 +10,8 @@ interface Project {
   title: string
   description: string
   technologies: string[]
-  link: string
+  githubLink: string
+  learnMoreLink: string
   category: string                                      // Sub Category of type field
   type: "All" | "Full Stack" | "Java" | "AI/ML" | "Mini Projects" // Main (Super) Category
   year: number
@@ -22,7 +23,8 @@ const projectsData: Project[] = [
     title: "CloakDocs - Image Masking Web App",
     description: "Streamlit-powered app enabling users to mask sensitive information in images with a no-login, intuitive interface.",
     technologies: ["Python", "Streamlit"],
-    link: "https://github.com/meghna-cse/cloakdocs-web-app",
+    githubLink: "https://github.com/meghna-cse/cloakdocs-web-app",
+    learnMoreLink: "https://github.com/meghna-cse/cloakdocs-web-app?tab=readme-ov-file#-features",
     category: "Image Processing & Privacy",
     type: "AI/ML",
     year: 2024,
@@ -32,7 +34,8 @@ const projectsData: Project[] = [
     title: "Beaver - LMS",
     description: "A full-stack LMS for managing web data, with frontend-backend integration and database optimization.",
     technologies: ["React", "Node.js", "Laravel", "MySQL/PostgreSQL"],
-    link: "https://github.com/meghna-cse/beaver",
+    githubLink: "https://github.com/meghna-cse/beaver",
+    learnMoreLink: "https://github.com/meghna-cse/beaver/wiki",
     category: "Education & Data Management",
     type: "Full Stack",
     year: 2023,
@@ -42,7 +45,8 @@ const projectsData: Project[] = [
     title: "SOUL",
     description: "Interactive Unity3D project simulating physics concepts for an engaging, accessible learning experience.",
     technologies: ["Unity3D", "C#", "JavaScript", "HTML", "CSS"],
-    link: "https://github.com/meghna-cse/SOUL",
+    githubLink: "https://github.com/meghna-cse/SOUL",
+    learnMoreLink: "https://ieeexplore.ieee.org/document/8968786",
     category: "Educational Simulations",
     type: "Full Stack",
     year: 2018,
@@ -52,7 +56,8 @@ const projectsData: Project[] = [
     title: "Weather App",
     description: "React-Flask app delivering real-time weather updates and forecasts with location-based functionality.",
     technologies: ["React", "Flask", "OpenWeatherMap API"],
-    link: "https://github.com/meghna-cse/weather-app",
+    githubLink: "https://github.com/meghna-cse/weather-app",
+    learnMoreLink: "https://github.com/meghna-cse/weather-app?tab=readme-ov-file#weather-app-%EF%B8%8F",
     category: "Web Applications",
     type: "Mini Projects",
     year: 2022,
@@ -62,8 +67,9 @@ const projectsData: Project[] = [
     title: "InputVal",
     description: "Java-Spring Boot project enhancing application security via robust input validation and secure coding.",
     technologies: ["Java", "Spring Boot", "Docker"],
-    link: "https://github.com/meghna-cse/inputVal",
-    category: " Secure Programming & Validation",
+    githubLink: "https://github.com/meghna-cse/inputVal",
+    learnMoreLink: "https://github.com/meghna-cse/inputVal/wiki/Regular-Expression",
+    category: "Secure Programming & Validation",
     type: "Java",
     year: 2023
     //image: "https://opengraph.githubassets.com/1/meghna-cse/inputVal"
@@ -95,16 +101,25 @@ const ProjectItem = ({ project }: ProjectItemProps) => {
         <div className="mt-auto">
           <div className="mb-4 flex flex-wrap gap-2">
             {project.technologies.map((tech: string, index: number) => (
-              <Badge key={index} variant="secondary" className="bg-teal-800 text-teal-100 hover:bg-teal-100 hover:text-teal-800">
+              <Badge key={index} variant="default" className="bg-teal-800 text-teal-100 hover:bg-teal-100 hover:text-teal-800">
                 {tech}
               </Badge>
             ))}
           </div>
-          <Button asChild variant="outline" className="w-full">
-            <a href={project.link} target="_blank" rel="noopener noreferrer">
-              View Project
-            </a>
-          </Button>
+          <div className="flex gap-2">
+            <Button asChild variant="outline" className="flex-1">
+              <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                <Github className="w-4 h-4 mr-2" />
+                Source Code
+              </a>
+            </Button>
+            <Button asChild variant="link" className="flex-1">
+              <a href={project.learnMoreLink} target="_blank" rel="noopener noreferrer">
+                <Info className="w-4 h-4 mr-2" />
+                Learn More
+              </a>
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -125,7 +140,7 @@ export default function Projects() {
         {["All", "Full Stack", "Java", "AI/ML", "Mini Projects"].map((filter) => (
           <Button
             key={filter}
-            variant={activeFilter === filter ? "default" : "outline"}
+            variant={activeFilter === filter ? "default" : "link"}
             onClick={() => setActiveFilter(filter as "All" | "Full Stack" | "Java" | "AI/ML" | "Mini Projects")}
             className={activeFilter === filter ? "bg-primary text-primary-foreground" : ""}
           >

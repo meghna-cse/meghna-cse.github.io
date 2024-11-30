@@ -181,7 +181,7 @@ export default function Timeline() {
         className="ml-16"
       >
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           className="mt-4"
           onClick={toggleEducation}

@@ -5,10 +5,9 @@ import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import { Github, Linkedin, Mail, ChevronRight, Moon, Sun, MapPin } from 'lucide-react'
 import Image from 'next/image'
-import { SiBento } from "react-icons/si"
-import { FaGoogleScholar } from "react-icons/fa6"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
+import Footer from '@/components/Footer'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 
 // Dynamically import the TabsSection
@@ -23,12 +22,6 @@ const logos = [
     dark: "/logos/ibm.png", 
     alt: "IBM", 
     width: 124
-  },
-  { 
-    light: "/logos/nationwide_light.png", 
-    dark: "/logos/nationwide_dark.png", 
-    alt: "Nationwide Building Society", 
-    width: 380 
   },
   { 
     light: "/logos/fablab_light.PNG", 
@@ -159,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
     </div>
     
     {/* Theme Toggle */}
-    <div className="flex items-center space-x-2">
+    {/*<div className="flex items-center space-x-2">
       <div className="w-[2.4rem] flex justify-center">
         {theme === 'dark' ? (
           <Moon className="h-[1.2rem] w-[1.2rem] text-muted-foreground" />
@@ -172,7 +165,7 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
         onCheckedChange={toggleTheme}
         className="data-[state=checked]:bg-primary"
       />
-    </div>
+    </div>*/}
   </header>
 )
 
@@ -297,32 +290,7 @@ export default function Portfolio() {
         </Suspense>
       </div>
 
-      <footer className="py-8 bg-muted transition-colors duration-300">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center space-y-4">
-          <div className="flex space-x-6">
-            <a href="https://github.com/meghna-cse" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
-              <Github className="h-6 w-6" />
-              <span className="sr-only">GitHub</span>
-            </a>
-            <a href="https://www.linkedin.com/in/meghna-j/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
-              <Linkedin className="h-6 w-6" />
-              <span className="sr-only">LinkedIn</span>
-            </a>
-            <a href="mailto:mxj3631@mavs.uta.edu" className="text-muted-foreground hover:text-primary transition-colors duration-300">
-              <Mail className="h-6 w-6" />
-              <span className="sr-only">Email</span>
-            </a>
-            <a href="https://scholar.google.com/citations?user=AwP-oyQAAAAJ&hl" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
-              <FaGoogleScholar className="h-6 w-6" />
-              <span className="sr-only">Google Scholar</span>
-            </a>
-            <a href="https://bento.me/meghna-j" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors duration-300">
-              <SiBento className="h-6 w-6" />
-              <span className="sr-only">Bento</span>
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

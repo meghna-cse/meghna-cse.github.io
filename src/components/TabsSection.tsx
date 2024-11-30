@@ -50,7 +50,7 @@ const TabsSection: React.FC<TabsSectionProps> = ({ theme }) => {
           <TabsContent value="timeline">
             <Card>
               <CardHeader>
-                <CardDescription className="text-muted-foreground">Relevant Experience</CardDescription>
+                <CardDescription className="text-muted-foreground"></CardDescription>
               </CardHeader>
               <CardContent>
                 <Timeline />
