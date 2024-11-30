@@ -21,25 +21,25 @@ const timelineData: TimelineItem[] = [
     title: "Research Assistant, Developer",
     organization: "The University of Texas at Arlington",
     period: "Sep 2024 - Present",
-    description: "Assisting in LLM research by improving model accuracy and automating processes for more reliable results.",
-    skills: ["Python", "Data Analysis", "LLMs"],
+    description: "Assiting in Large Language Models (LLMs) research by improving model accuracy and automating evaluation pipelines to improve efficiency. Applied Python-based data analysis techniques to ensure experimental validity and reliability.",
+    skills: ["LLM", "Python", "Data Analysis", "Automation" , "AI Research"],
     logo: '/logos/uta.png'
   },
   {
     type: "experience",
     title: "Software Developer, Student Assistant",
-    organization: "The University of Texas at Arlington",
+    organization: "FabLab, UT Arlington",
     period: "May 2023 - Aug 2023",
-    description: "Revamped an internal portal using React and Node.js, integrating SSO and resolving critical issues to boost security and usability.",
-    skills: ["React", "Node.js", "PHP", "SSO", "MySQL"],
-    logo: '/logos/fablab.PNG'
+    description: "Transitioned an outdated internal portal from PHP to modern React and Node.js architecture, improving security and usability by implementing SSO and role-based access controls.",
+    skills: ["React", "Node.js", "SSO", "Role Management", "Debugging"],
+    logo: '/logos/fablab_light.PNG'
   },
   {
     type: "education",
     title: "Master of Science in Computer Science",
     organization: "The University of Texas at Arlington",
     period: "Aug 2022 - May 2024",
-    description: "Focused on advanced topics in Machine Learning, Cloud Computing, and Distributed Systems.",
+    description: "Focused on advanced topics in Machine Learning, Cloud Computing, and Secure Programming. Guided software testing labs for 40+ students in SDLC practices as a Graduate Teaching Assistant. Also, supported IT operations and user queries at the Office of Information Technology as a Student Assistant.",
     logo: '/logos/uta.png'
   },
   {
@@ -47,8 +47,8 @@ const timelineData: TimelineItem[] = [
     title: "Software Engineer, Application Development",
     organization: "IBM India",
     period: "Jul 2018 - Jul 2022",
-    description: "Built and maintained 25+ integration apps using IBM Integration Tools, Java and APIs, including secure Apple Pay integration. Drove CI/CD optimization, cloud migration project, and migrated legacy apps, boosting scalability and performance.",
-    skills: ["Java", "API Integration", "Jenkins", "IBM MQ", "IBM ACE", "IBM DB2", "Agile Methodologies"],
+    description: "Developed 25+ integration apps, implementing scalable REST and SOAP APIs, including a secure Apple Pay integration. Optimized CI/CD pipelines using Jenkins and migrated legacy systems to modern frameworks.",
+    skills: ["REST APIs", "SOAP APIs", "Java", "Jenkins", "CI/CD", "Legacy Migration"],
     logo: '/logos/ibm.png'
   },
   {
@@ -160,13 +160,6 @@ export default function Timeline() {
 
   return (
     <div className="relative" ref={timelineRef}>
-      <div 
-        className="absolute left-[23px] w-0.5 bg-border transition-all duration-500 ease-in-out"
-        style={{ 
-          height: `${lineHeight}px`,
-          top: '24px'
-        }}
-      />
       <div className="space-y-0">
         {timelineData.map((item, index) => (
           <div 

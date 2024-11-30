@@ -11,62 +11,60 @@ interface Project {
   description: string
   technologies: string[]
   link: string
-  category: string
-  type: "All Project" | "Full Stack" | "Mini Projects" 
+  category: string                                      // Sub Category of type field
+  type: "All" | "Full Stack" | "Java" | "AI/ML" | "Mini Projects" // Main (Super) Category
   year: number
   image?: string
-  publisher?: string
-  abstract?: string
 }
 
 const projectsData: Project[] = [
   {
-    title: "CloakDocs",
-    description: "This app allows users to upload images (JPG, PNG), mask information by drawing over specific areas, and download the masked image. Built using Streamlit, the app features a simple and intuitive interface, making it easy for users to protect personal information without requiring a login.",
+    title: "CloakDocs - Image Masking Web App",
+    description: "Streamlit-powered app enabling users to mask sensitive information in images with a no-login, intuitive interface.",
     technologies: ["Python", "Streamlit"],
     link: "https://github.com/meghna-cse/cloakdocs-web-app",
-    category: "Web & Data Applications",
-    type: "Mini Projects",
+    category: "Image Processing & Privacy",
+    type: "AI/ML",
     year: 2024,
     image: "/gifs/CloakDocs.gif"
   },
   {
     title: "Beaver - LMS",
-    description: "A Learning Management System web application designed to manage and present web data effectively. My contributions focused on the frontend and backend integration. This project enhanced my full-stack development skills and database management.",
+    description: "A full-stack LMS for managing web data, with frontend-backend integration and database optimization.",
     technologies: ["React", "Node.js", "Laravel", "MySQL/PostgreSQL"],
     link: "https://github.com/meghna-cse/beaver",
-    category: "Full Stack",
+    category: "Education & Data Management",
     type: "Full Stack",
     year: 2023,
     image: "/gifs/Beaver.gif"
   },
   {
     title: "SOUL",
-    description: "A project designed to make learning theoretical concepts interactive by simulating rigid body physics in real-time. Using Unity3D, C#, JavaScript, HTML, and CSS, created an engaging platform that makes learning theoretical physics interactive and accessible.",
+    description: "Interactive Unity3D project simulating physics concepts for an engaging, accessible learning experience.",
     technologies: ["Unity3D", "C#", "JavaScript", "HTML", "CSS"],
     link: "https://github.com/meghna-cse/SOUL",
-    category: "Full Stack",
+    category: "Educational Simulations",
     type: "Full Stack",
     year: 2018,
     image: "/gifs/SOUL.gif"
   },
   {
     title: "Weather App",
-    description: "A simple weather application that provides real-time weather updates and a 5-day forecast for any city in the world. It also allows users to get weather updates based on their current location.",
+    description: "React-Flask app delivering real-time weather updates and forecasts with location-based functionality.",
     technologies: ["React", "Flask", "OpenWeatherMap API"],
     link: "https://github.com/meghna-cse/weather-app",
-    category: "Frontend, API Integration",
+    category: "Web Applications",
     type: "Mini Projects",
     year: 2022,
     image: "/gifs/WeatherApp.gif"
   },
   {
     title: "InputVal",
-    description: "Focused on developing secure coding practices and robust input validation. Utilizing Java, Spring Boot, and Docker, I designed and implemented features that enhance application security, demonstrating my skills in secure software development.",
+    description: "Java-Spring Boot project enhancing application security via robust input validation and secure coding.",
     technologies: ["Java", "Spring Boot", "Docker"],
     link: "https://github.com/meghna-cse/inputVal",
-    category: "Backend Engineering",
-    type: "Mini Projects",
+    category: " Secure Programming & Validation",
+    type: "Java",
     year: 2023
     //image: "https://opengraph.githubassets.com/1/meghna-cse/inputVal"
   }
@@ -102,7 +100,7 @@ const ProjectItem = ({ project }: ProjectItemProps) => {
               </Badge>
             ))}
           </div>
-          <Button asChild variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+          <Button asChild variant="outline" className="w-full">
             <a href={project.link} target="_blank" rel="noopener noreferrer">
               View Project
             </a>
@@ -114,44 +112,26 @@ const ProjectItem = ({ project }: ProjectItemProps) => {
 }
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState<"all" | "Full Stack" | "Mini Projects">("all")
-  const [activeTechFilter, setActiveTechFilter] = useState<string>("all")
+  const [activeFilter, setActiveFilter] = useState<"All" | "Full Stack" | "Java" | "AI/ML" | "Mini Projects">("All")
 
-  const allTechnologies = Array.from(new Set(projectsData.flatMap(project => project.technologies)))
-
-  const filteredProjects = projectsData.filter(project => {
-    const typeMatch = activeFilter === "all" ? project.type === "Full Stack" : project.type === activeFilter
-    const techMatch = activeTechFilter === "all" || project.technologies.includes(activeTechFilter)
-    return typeMatch && techMatch
-  })
+  const filteredProjects = projectsData.filter(project => 
+    activeFilter === "All" || project.type === activeFilter
+  )
 
   return (
     <div>
-      <br></br>
+      <br />
       <div className="mb-6 flex flex-wrap justify-center gap-4">
-        <div className="flex flex-wrap gap-2">
+        {["All", "Full Stack", "Java", "AI/ML", "Mini Projects"].map((filter) => (
           <Button
-            variant={activeFilter === "all" ? "default" : "outline"}
-            onClick={() => setActiveFilter("all")}
-            className={activeFilter === "all" ? "bg-primary text-primary-foreground" : ""}
+            key={filter}
+            variant={activeFilter === filter ? "default" : "outline"}
+            onClick={() => setActiveFilter(filter as "All" | "Full Stack" | "Java" | "AI/ML" | "Mini Projects")}
+            className={activeFilter === filter ? "bg-primary text-primary-foreground" : ""}
           >
-            All
+            {filter}
           </Button>
-          <Button
-            variant={activeFilter === "Full Stack" ? "default" : "outline"}
-            onClick={() => setActiveFilter("Full Stack")}
-            className={activeFilter === "Full Stack" ? "bg-primary text-primary-foreground" : ""}
-          >
-            Full Stack
-          </Button>
-          <Button
-            variant={activeFilter === "Mini Projects" ? "default" : "outline"}
-            onClick={() => setActiveFilter("Mini Projects")}
-            className={activeFilter === "Mini Projects" ? "bg-primary text-primary-foreground" : ""}
-          >
-            Mini Projects
-          </Button>
-        </div>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">

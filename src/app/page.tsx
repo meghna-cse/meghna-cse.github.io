@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, ChevronRight, Moon, Sun } from 'lucide-react'
+import { Github, Linkedin, Mail, ChevronRight, Moon, Sun, MapPin } from 'lucide-react'
 import Image from 'next/image'
 import { SiBento } from "react-icons/si"
 import { FaGoogleScholar } from "react-icons/fa6"
@@ -17,6 +17,33 @@ const TabsSection = dynamic(() => import('@/components/TabsSection'), {
   ssr: false
 })
 
+const logos = [
+  { 
+    light: "/logos/ibm.png", 
+    dark: "/logos/ibm.png", 
+    alt: "IBM", 
+    width: 124
+  },
+  { 
+    light: "/logos/nationwide_light.png", 
+    dark: "/logos/nationwide_dark.png", 
+    alt: "Nationwide Building Society", 
+    width: 380 
+  },
+  { 
+    light: "/logos/fablab_light.png", 
+    dark: "/logos/fablab_dark.png", 
+    alt: "FabLab UT Arlington", 
+    width: 49 
+  },
+  { 
+    light: "/logos/uta.png", 
+    dark: "/logos/uta.png", 
+    alt: "UT Arlington", 
+    width: 121 
+  }
+]
+
 interface HeaderProps {
   theme: string;
   toggleTheme: () => void;
@@ -25,7 +52,7 @@ interface HeaderProps {
 // Header component for immediate loading
 const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
   <header className="flex flex-col sm:flex-row justify-between items-center mb-16 gap-4">
-    <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
+    <div className="flex flex-col sm:flex-row items-start gap-8 sm:gap-12">
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -50,6 +77,8 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
           priority
         />
       </motion.div>
+
+      {/* Text Content */}
       <motion.div 
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -57,13 +86,20 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
         className="text-center sm:text-left"
       >
         <h2 className="text-3xl sm:text-4xl font-bold mb-4 dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Meghna J.</h2>
-        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-6">
-          Software Engineer, experienced in developing applications using <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Java</strong>, <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">Python</strong>, and <strong className="dark:text-[rgb(94,234,212)] text-[rgb(13,148,136)]">React</strong>. <br />
-          I enjoy solving problems through clean, functional code and seamless API integration.
-        </p>
+        <div className="flex items-center justify-center sm:justify-start text-muted-foreground mb-4">
+          <MapPin className="w-4 h-4 mr-2" />
+          <span>Dallas-Fort Worth Metroplex, TX, USA</span>
+        </div>
+        <p className="mt-4 text-lg text-muted-foreground">
+          Backend-focused Software Engineer with full-stack capabilities, experienced in{' '}
+          <span className="text-teal-600 dark:text-teal-400 font-semibold">Java</span>,{' '}
+          <span className="text-teal-600 dark:text-teal-400 font-semibold">Python</span>,{' '}
+          <span className="text-teal-600 dark:text-teal-400 font-semibold">React</span>, and{' '}
+          <span className="text-teal-600 dark:text-teal-400 font-semibold">API integration</span>.
+        </p><br />
         <div className="flex flex-col items-center sm:items-start space-y-4 sm:space-y-0">
           <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button asChild className="bg-teal-600 dark:bg-white hover:bg-teal-700 text-white dark:text-black">
               <a href="https://drive.google.com/file/d/1sCOdt4ZypY2jiRArhfJR-hjJvOy_1AXX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="flex items-center">
                 View Resume <ChevronRight className="ml-2 h-4 w-4" />
               </a>
@@ -95,23 +131,22 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
             </div>
           </div>
         </div>
+
+        {/* Company Logos */}
         <div className="flex gap-4 mt-6 justify-center sm:justify-start">
-          <TooltipProvider>
-            {[
-              { src: "/logos/ibm.png", alt: "IBM" , width : 124},
-              { src: "/logos/nationwide.png", alt: "Nationwide Building Society", width : 380 },
-              { src: "/logos/fablab.PNG", alt: "FabLab UT Arlington", width : 49 },
-              { src: "/logos/uta.png", alt: "UT Arlington", width : 121 }
-            ].map((logo, index) => (
+        <TooltipProvider>
+            {logos.map((logo, index) => (
               <Tooltip key={index}>
                 <TooltipTrigger>
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={50}
-                    height={50}
-                    className="hover:opacity-80 transition-opacity"
-                  />
+                  <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
+                    <Image
+                      src={theme === 'dark' ? logo.dark : logo.light}
+                      alt={logo.alt}
+                      width={logo.width}
+                      height={50}
+                      className="object-contain p-1 hover:opacity-80 transition-opacity"
+                    />
+                  </div>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{logo.alt}</p>
@@ -122,6 +157,8 @@ const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => (
         </div>
       </motion.div>
     </div>
+    
+    {/* Theme Toggle */}
     <div className="flex items-center space-x-2">
       <div className="w-[2.4rem] flex justify-center">
         {theme === 'dark' ? (
