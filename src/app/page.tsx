@@ -31,7 +31,7 @@ const logos = [
     width: 380 
   },
   { 
-    light: "/logos/fablab_light.png", 
+    light: "/logos/fablab_light.PNG", 
     dark: "/logos/fablab_dark.png", 
     alt: "FabLab UT Arlington", 
     width: 49 
