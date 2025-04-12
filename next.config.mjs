@@ -4,10 +4,11 @@ const nextConfig = {
     output: 'export',
     images: {
       unoptimized: true,
+      domains: ['i.scdn.co'], // Allow Spotify album art images
     },
     eslint: {
       ignoreDuringBuilds: true,
-    },
+    },  
   }
   
   export default nextConfig;
