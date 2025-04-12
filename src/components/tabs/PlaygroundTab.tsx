@@ -596,7 +596,7 @@ export default function Playground() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          This is where my left brain takes a snack break. ☕💡🎧
+          ☕💡🎧
         </motion.p>
       </div>
       
@@ -616,7 +616,7 @@ export default function Playground() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {/* <SpotifyNowPlaying spotifyAccessToken={spotifyAccessToken} /> */}
+              <SpotifyNowPlaying />
             </CardContent>
           </Card>
         </motion.div>
