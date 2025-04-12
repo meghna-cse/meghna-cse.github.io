@@ -90,20 +90,11 @@ const TimelineItem: React.FC<{ item: TimelineItem; isVisible: boolean }> = ({ it
         height: isVisible ? "auto" : 0,
       }}
       transition={{ duration: 0.5 }}
-      className="relative pl-8 pb-8 border-l border-muted last:border-l-transparent"
+      className="relative pl-8 pb-8"
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      <motion.div
-        className="absolute left-0 top-0 w-8 h-8 -translate-x-1/2 rounded-full bg-background flex items-center justify-center overflow-hidden"
-        animate={{
-          scale: isHovered ? 1.2 : 1,
-          boxShadow: isHovered
-            ? `0 0 10px 2px ${theme === "dark" ? "rgba(79, 70, 229, 0.5)" : "rgba(59, 130, 246, 0.5)"}`
-            : "none",
-        }}
-        transition={{ duration: 0.3 }}
-      >
+      <div className="absolute left-0 top-0 w-8 h-8 -translate-x-1/2 rounded-full bg-background flex items-center justify-center overflow-hidden">
         <Image
           src={theme === "dark" ? item.logo.dark : item.logo.light}
           alt={`${item.organization} logo`}
@@ -111,7 +102,7 @@ const TimelineItem: React.FC<{ item: TimelineItem; isVisible: boolean }> = ({ it
           height={32}
           className="object-cover"
         />
-      </motion.div>
+      </div>
       <motion.div
         className="bg-card rounded-lg p-4 shadow-sm"
         whileHover={{
@@ -159,4 +150,3 @@ export default function Timeline() {
     </div>
   )
 }
-
