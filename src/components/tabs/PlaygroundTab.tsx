@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Lightbulb, Music, Book, Gamepad2, Code, Dumbbell, Paintbrush, Plane } from "lucide-react"
 import Image from "next/image"
-import SpotifyNowPlaying from "@/components/playground/spotify"
+import { SpotifyNowPlaying } from "@/components/playground/spotify"
 
 // Mini-game: Memory Card Game
 const MemoryGame = () => {
@@ -205,7 +205,7 @@ const FunFactGenerator = () => {
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-lg font-semibold">Just a little something about me</h3>
+        <h4 className="text-lg font-semibold">Just a little something about me</h4>
         <Button size="sm" onClick={generateFact} disabled={isLoading}>
           {isLoading ? "Generating..." : "New Fact"}
         </Button>
@@ -623,13 +623,8 @@ export default function Playground() {
 
         <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Lightbulb className="w-5 h-5" />
-                <span>Byte-Sized Facts</span>
-              </CardTitle>
-            </CardHeader>
             <CardContent>
+              <br />
               <FunFactGenerator />
             </CardContent>
           </Card>

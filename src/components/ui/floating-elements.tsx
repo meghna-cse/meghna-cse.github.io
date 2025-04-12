@@ -9,11 +9,11 @@ export const FloatingElements = () => {
   const { theme } = useTheme()
 
   const icons = [
-    { Icon: Bot, delay: 0, x: "10%", y: "15%" },
-    { Icon: Code, delay: 1, x: "10%", y: "15%" },
-    { Icon: Database, delay: 2, x: "85%", y: "20%" },
-    { Icon: Server, delay: 3, x: "75%", y: "75%" },
-    { Icon: Cpu, delay: 4, x: "15%", y: "80%" },
+    { Icon: Cpu, delay: 0, x: "40%", y: "18%" },
+    { Icon: Server, delay: 1, x: "60%", y: "13%" },
+    { Icon: Database, delay: 2, x: "80%", y: "15%" },
+    { Icon: Code, delay: 3, x: "75%", y: "5%" },
+    { Icon: Bot, delay: 4, x: "90%", y: "10%" },
     { Icon: Cloud, delay: 5, x: "50%", y: "10%" },
   ]
 
@@ -41,7 +41,7 @@ export const FloatingElements = () => {
             },
           }}
         >
-          <Icon size={30 + index * 5} className={theme === "dark" ? "text-primary/30" : "text-primary/20"} />
+          <Icon size={30 + index * 5} className={theme === "dark" ? "text-primary/30" : "text-primary/50"} />
         </motion.div>
       ))}
     </div>

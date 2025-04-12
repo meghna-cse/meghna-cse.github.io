@@ -99,10 +99,10 @@ export default function Hero() {
 
         {/* Company Logos */}
         <div className="flex gap-4 mt-6 justify-center sm:justify-start theme-transition">
-          <TooltipProvider>
+          <TooltipProvider delayDuration={0}>
             {logos.map((logo, index) => (
               <Tooltip key={index}>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                   <div className="w-12 h-12 flex items-center justify-center overflow-hidden">
                     <Image
                       src={theme === "dark" ? logo.dark : logo.light}
@@ -113,7 +113,7 @@ export default function Hero() {
                     />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent side="bottom" sideOffset={5} className="bg-background text-foreground border shadow-sm">
                   <p>{logo.alt}</p>
                 </TooltipContent>
               </Tooltip>

@@ -9,14 +9,16 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { useTheme } from "next-themes"
 
+type ProjectCategory = "All" | "Full Stack" | "AI/ML" | "Mini Projects"
+
 interface Project {
   title: string
   description: string
   technologies: string[]
   githubLink: string
   learnMoreLink: string
-  category: string // Sub Category of type field
-  type: "All" | "Full Stack" | "AI/ML" | "Mini Projects" // Main (Super) Category
+  category: string // Sub Category description
+  categories: ProjectCategory[] // Multiple categories a project can belong to
   year: number
   image?: string
 }
@@ -29,7 +31,7 @@ const projectsData: Project[] = [
     githubLink: "https://github.com/meghna-cse/cloakdocs-web-app",
     learnMoreLink: "https://github.com/meghna-cse/cloakdocs-web-app?tab=readme-ov-file#-features",
     category: "Image Processing & Privacy",
-    type: "AI/ML",
+    categories: ["AI/ML", "Mini Projects"],
     year: 2024,
     image: "/gifs/CloakDocs.gif",
   },
@@ -40,7 +42,7 @@ const projectsData: Project[] = [
     githubLink: "https://github.com/meghna-cse/beaver",
     learnMoreLink: "https://github.com/meghna-cse/beaver/wiki",
     category: "Education & Data Management",
-    type: "Full Stack",
+    categories: ["Full Stack"],
     year: 2023,
     image: "/gifs/Beaver.gif",
   },
@@ -51,34 +53,10 @@ const projectsData: Project[] = [
     githubLink: "https://github.com/meghna-cse/SOUL",
     learnMoreLink: "https://ieeexplore.ieee.org/document/8968786",
     category: "Educational Simulations",
-    type: "Full Stack",
+    categories: ["Full Stack"],
     year: 2018,
     image: "/gifs/SOUL.gif",
   },
-  // {
-  //   title: "Weather App",
-  //   description:
-  //     "React-Flask app delivering real-time weather updates and forecasts with location-based functionality.",
-  //   technologies: ["React", "Flask", "OpenWeatherMap API"],
-  //   githubLink: "https://github.com/meghna-cse/weather-app",
-  //   learnMoreLink: "https://github.com/meghna-cse/weather-app?tab=readme-ov-file#weather-app-%EF%B8%8F",
-  //   category: "Web Applications",
-  //   type: "Mini Projects",
-  //   year: 2022,
-  //   image: "/gifs/WeatherApp.gif",
-  // },
-  // {
-  //   title: "InputVal",
-  //   description:
-  //     "Java-Spring Boot project enhancing application security via robust input validation and secure coding.",
-  //   technologies: ["Java", "Spring Boot", "Docker"],
-  //   githubLink: "https://github.com/meghna-cse/inputVal",
-  //   learnMoreLink: "https://github.com/meghna-cse/inputVal/wiki/Regular-Expression",
-  //   category: "Secure Programming & Validation",
-  //   type: "Mini Projects",
-  //   year: 2023,
-  //   image: "https://opengraph.githubassets.com/1/meghna-cse/inputVal",
-  // },
 ]
 
 interface ProjectItemProps {
@@ -103,7 +81,9 @@ const ProjectItem = ({ project }: ProjectItemProps) => {
       onHoverEnd={() => setIsHovered(false)}
     >
       <Card
-        className={`h-full flex flex-col theme-transition transform transition-all duration-300 ${isHovered ? "shadow-lg shadow-primary/20" : ""}`}
+        className={`h-full flex flex-col theme-transition transform transition-all duration-300 ${
+          isHovered ? "shadow-lg shadow-primary/20" : ""
+        }`}
       >
         <CardHeader className="theme-transition">
           <CardTitle className="text-xl font-semibold theme-transition">{project.title}</CardTitle>
@@ -119,7 +99,7 @@ const ProjectItem = ({ project }: ProjectItemProps) => {
                 height={225}
                 className={`w-full h-auto object-cover transition-transform duration-300 ${
                   isHovered ? "scale-110" : "scale-100"
-                } theme-transition ${theme === "dark" ? "filter grayscale" : ""}`}
+                } theme-transition ${theme === "dark" ? "filter" : ""}`}
               />
             </div>
           )}
@@ -160,11 +140,15 @@ const ProjectItem = ({ project }: ProjectItemProps) => {
 }
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState<"All" | "Full Stack" | "Java" | "AI/ML" | "Mini Projects">("All")
+  const [activeFilter, setActiveFilter] = useState<ProjectCategory>("All")
   const { theme } = useTheme()
   const [isVisible, setIsVisible] = useState(true)
 
-  const filteredProjects = projectsData.filter((project) => activeFilter === "All" || project.type === activeFilter)
+  // Updated filtering logic to check if a project belongs to the selected category
+  // or if "All" is selected
+  const filteredProjects = projectsData.filter(
+    (project) => activeFilter === "All" || project.categories.includes(activeFilter),
+  )
 
   useEffect(() => {
     // setIsVisible(true)
@@ -181,7 +165,7 @@ export default function Projects() {
             <Button
               variant={activeFilter === filter ? "default" : "link"}
               size="sm"
-              onClick={() => setActiveFilter(filter as "All" | "Full Stack" | "AI/ML" | "Mini Projects")}
+              onClick={() => setActiveFilter(filter as ProjectCategory)}
               className="theme-transition"
             >
               {filter}

@@ -2,119 +2,190 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import Image from "next/image"
 import { useTheme } from "next-themes"
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Loader2 } from "lucide-react"
 
-interface Track {
-  title: string;
-  artist: string;
-  album: string;
-  albumArt: string;
-  duration: number; // in seconds
-  progress: number; // in seconds
+interface SpotifyTrack {
+  name: string
+  artist: string
+  album: string
+  albumArt: string
+  duration: number
+  progress: number
+  url: string
 }
 
-interface SpotifyNowPlayingProps {
-  spotifyAccessToken: string;
+interface SpotifyState {
+  isPlaying: boolean
+  track?: SpotifyTrack
+  error?: string
+  isAuthenticated: boolean
 }
 
-const SpotifyNowPlaying = ({ spotifyAccessToken }: SpotifyNowPlayingProps) => {
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const { theme } = useTheme();
+export const SpotifyNowPlaying = () => {
+  const [spotifyState, setSpotifyState] = useState<SpotifyState>({
+    isPlaying: false,
+    isAuthenticated: false,
+  })
+  const [isLoading, setIsLoading] = useState(true)
+  const { theme } = useTheme()
 
-  // Fetch currently playing track from Spotify
-  const fetchCurrentTrack = async () => {
+  // Format time as mm:ss
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`
+  }
+
+  // Check if the user is authenticated with Spotify
+  const checkAuthentication = async () => {
     try {
-      const response = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {
-        headers: {
-          Authorization: `Bearer ${spotifyAccessToken}`,
-        },
-      });
+      const response = await fetch("/api/spotify/currently-playing")
 
-      // If no track is playing, Spotify returns 204 (no content)
-      if (response.status === 204) {
-        setCurrentTrack(null);
-        setIsPlaying(false);
-        return;
+      if (response.status === 401) {
+        setSpotifyState({
+          isPlaying: false,
+          isAuthenticated: false,
+        })
+        setIsLoading(false)
+        return false
       }
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data && data.item) {
-          const track: Track = {
-            title: data.item.name,
-            artist: data.item.artists.map((artist: any) => artist.name).join(", "),
-            album: data.item.album.name,
-            albumArt: data.item.album.images[0]?.url || "",
-            duration: Math.floor(data.item.duration_ms / 1000),
-            progress: Math.floor(data.progress_ms / 1000),
-          };
-          setCurrentTrack(track);
-          setIsPlaying(data.is_playing);
+      return true
+    } catch (error) {
+      console.error("Error checking authentication:", error)
+      return false
+    }
+  }
+
+  // Fetch the currently playing track
+  const fetchCurrentlyPlaying = async () => {
+    try {
+      setIsLoading(true)
+
+      const isAuthenticated = await checkAuthentication()
+
+      if (!isAuthenticated) {
+        return
+      }
+
+      const response = await fetch("/api/spotify/currently-playing")
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          // Token expired, try to refresh
+          const refreshResponse = await fetch("/api/spotify/refresh")
+          if (refreshResponse.ok) {
+            // Try again after refreshing
+            fetchCurrentlyPlaying()
+            return
+          } else {
+            setSpotifyState({
+              isPlaying: false,
+              isAuthenticated: false,
+              error: "Authentication expired",
+            })
+          }
+        } else {
+          setSpotifyState({
+            isPlaying: false,
+            isAuthenticated: true,
+            error: "Failed to fetch currently playing",
+          })
         }
       } else {
-        console.error("Error fetching Spotify track:", response.statusText);
+        const data = await response.json()
+        setSpotifyState({
+          isPlaying: data.isPlaying,
+          track: data.track,
+          isAuthenticated: true,
+        })
       }
     } catch (error) {
-      console.error("Error fetching Spotify track:", error);
+      console.error("Error fetching currently playing:", error)
+      setSpotifyState((prev) => ({
+        ...prev,
+        error: "Failed to fetch currently playing",
+      }))
+    } finally {
+      setIsLoading(false)
     }
-  };
+  }
 
-  // Poll Spotify for the current track every 15 seconds
+  // Connect to Spotify
+  const connectToSpotify = () => {
+    window.location.href = "/api/spotify/auth"
+  }
+
+  // Fetch the currently playing track on mount and every 30 seconds
   useEffect(() => {
-    fetchCurrentTrack(); // initial fetch
-    const pollingInterval = setInterval(fetchCurrentTrack, 15000);
-    return () => clearInterval(pollingInterval);
-  }, [spotifyAccessToken]);
+    fetchCurrentlyPlaying()
 
-  // Smoothly update track progress locally every second for a seamless UI
-  useEffect(() => {
-    if (currentTrack && isPlaying) {
-      const progressInterval = setInterval(() => {
-        setCurrentTrack((prevTrack) => {
-          if (!prevTrack) return prevTrack;
-          const newProgress = prevTrack.progress + 1;
-          // When the track’s progress reaches or exceeds its duration, we let the polling update clear it
-          if (newProgress >= prevTrack.duration) {
-            clearInterval(progressInterval);
-            return prevTrack;
-          }
-          return { ...prevTrack, progress: newProgress };
-        });
-      }, 1000);
-      return () => clearInterval(progressInterval);
-    }
-  }, [currentTrack, isPlaying]);
+    const interval = setInterval(() => {
+      fetchCurrentlyPlaying()
+    }, 30000) // Update every 30 seconds
 
-  // Format seconds into mm:ss
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
-  };
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold">Currently Listening To</h3>
-        <div className="flex items-center gap-2">
-          <div className={`w-2 h-2 rounded-full ${isPlaying ? "bg-green-500 animate-pulse" : "bg-gray-400"}`}></div>
-          <span className="text-xs text-muted-foreground">{isPlaying ? "Active now" : "Inactive"}</span>
-        </div>
+        {!isLoading && (
+          <div className="flex items-center gap-2">
+            <div
+              className={`w-2 h-2 rounded-full ${
+                spotifyState.isAuthenticated && spotifyState.isPlaying ? "bg-green-500 animate-pulse" : "bg-gray-400"
+              }`}
+            ></div>
+            <span className="text-xs text-muted-foreground">
+              {spotifyState.isAuthenticated
+                ? spotifyState.isPlaying
+                  ? "Playing now"
+                  : "Not playing"
+                : "Not connected"}
+            </span>
+          </div>
+        )}
       </div>
 
-      {currentTrack ? (
+      {isLoading ? (
+        <div className="flex justify-center items-center py-12">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
+      ) : !spotifyState.isAuthenticated ? (
+        <div className="p-6 rounded-lg bg-card text-center">
+          <p className="mb-4">Connect your Spotify account to show what you're currently listening to.</p>
+          <Button onClick={connectToSpotify} className="bg-[#1DB954] hover:bg-[#1DB954]/90 text-white">
+            Connect Spotify
+          </Button>
+        </div>
+      ) : spotifyState.error ? (
+        <div className="p-6 rounded-lg bg-card text-center">
+          <p className="text-muted-foreground mb-4">{spotifyState.error}</p>
+          <Button onClick={fetchCurrentlyPlaying} variant="outline" size="sm">
+            Retry
+          </Button>
+        </div>
+      ) : spotifyState.isPlaying && spotifyState.track ? (
         <motion.div
           className={`p-4 rounded-lg ${theme === "dark" ? "bg-green-900/20" : "bg-green-100"} flex items-center gap-4`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="relative min-w-[80px] w-20 h-20">
+          <a
+            href={spotifyState.track.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative min-w-[80px] w-20 h-20 block"
+          >
             <Image
-              src={currentTrack.albumArt}
-              alt={`${currentTrack.album} cover`}
+              src={spotifyState.track.albumArt || "/placeholder.svg"}
+              alt={`${spotifyState.track.album} cover`}
               width={80}
               height={80}
               className="rounded-md shadow-md"
@@ -141,26 +212,28 @@ const SpotifyNowPlaying = ({ spotifyAccessToken }: SpotifyNowPlayingProps) => {
                 </svg>
               </motion.div>
             </div>
-          </div>
+          </a>
 
           <div className="flex-1">
-            <h4 className="font-medium text-sm line-clamp-1">{currentTrack.title}</h4>
-            <p className="text-xs text-muted-foreground line-clamp-1">{currentTrack.artist}</p>
-            <p className="text-xs text-muted-foreground line-clamp-1">{currentTrack.album}</p>
+            <h4 className="font-medium text-sm line-clamp-1">{spotifyState.track.name}</h4>
+            <p className="text-xs text-muted-foreground line-clamp-1">{spotifyState.track.artist}</p>
+            <p className="text-xs text-muted-foreground line-clamp-1">{spotifyState.track.album}</p>
 
             <div className="mt-2">
               <div className="h-1 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden">
                 <motion.div
                   className="h-full bg-green-500"
-                  // Calculate width as a percentage of track progress
-                  style={{
-                    width: `${(currentTrack.progress / currentTrack.duration) * 100}%`,
+                  initial={{ width: `${(spotifyState.track.progress / spotifyState.track.duration) * 100}%` }}
+                  animate={{ width: "100%" }}
+                  transition={{
+                    duration: spotifyState.track.duration - spotifyState.track.progress,
+                    ease: "linear",
                   }}
                 />
               </div>
               <div className="flex justify-between mt-1 text-xs text-muted-foreground">
-                <span>{formatTime(currentTrack.progress)}</span>
-                <span>{formatTime(currentTrack.duration)}</span>
+                <span>{formatTime(spotifyState.track.progress)}</span>
+                <span>{formatTime(spotifyState.track.duration)}</span>
               </div>
             </div>
           </div>
@@ -186,19 +259,16 @@ const SpotifyNowPlaying = ({ spotifyAccessToken }: SpotifyNowPlayingProps) => {
           </div>
         </motion.div>
       ) : (
-        <motion.div
-          className={`p-4 rounded-lg ${theme === "dark" ? "bg-gray-800" : "bg-gray-100"} text-center`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="text-sm text-muted-foreground">
-            {isPlaying ? "Loading current track..." : "Nothing playing right now."}
+        <div className="p-6 rounded-lg bg-card text-center">
+          <p className="text-muted-foreground">Nothing playing on Spotify right now.</p>
+          <p className="text-xs mt-2 text-muted-foreground">
+            Play something on Spotify and click refresh to see it here.
           </p>
-        </motion.div>
+          <Button onClick={fetchCurrentlyPlaying} variant="outline" size="sm" className="mt-4">
+            Refresh
+          </Button>
+        </div>
       )}
     </div>
-  );
-};
-
-export default SpotifyNowPlaying;
+  )
+}
